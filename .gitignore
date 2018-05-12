@@ -6,3 +6,10 @@
 /Elements/NetFramework/ZenStart/bin
 /Elements/NetFramework/ZenStart/obj
 /Elements/ZenStart/.vs/ZenStart/v15/Server/sqlite3
+/Elements/.vs/ZenElementsDotNetCore
+/Elements/NetCore/.vs
+/Elements/NetCore/ZenDebug/bin
+/Elements/NetCore/ZenDebug/obj
+/Elements/NetFramework/ZenDebug/bin
+/Elements/NetFramework/ZenDebug/obj
+*.user
