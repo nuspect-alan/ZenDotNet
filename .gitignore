@@ -3,3 +3,6 @@
 ################################################################################
 
 /Elements/.vs/ZenDotNetElements/v15
+/Elements/NetFramework/ZenStart/bin
+/Elements/NetFramework/ZenStart/obj
+/Elements/ZenStart/.vs/ZenStart/v15/Server/sqlite3
