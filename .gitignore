@@ -13,3 +13,4 @@
 /Elements/NetFramework/ZenDebug/bin
 /Elements/NetFramework/ZenDebug/obj
 *.user
+/Elements/.vs
