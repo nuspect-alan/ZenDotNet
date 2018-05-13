@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenStart", "NetFramework\Ze
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenDebug", "NetFramework\ZenDebug\ZenDebug.csproj", "{1B5E39B4-607E-4BB7-B680-02F0245C0192}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenElementsExecuter", "NetFramework\ZenElementsExecuter\ZenElementsExecuter.csproj", "{6EE8ECE9-BEF0-4BBF-BD15-B3D5375C1F42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1B5E39B4-607E-4BB7-B680-02F0245C0192}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B5E39B4-607E-4BB7-B680-02F0245C0192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B5E39B4-607E-4BB7-B680-02F0245C0192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE8ECE9-BEF0-4BBF-BD15-B3D5375C1F42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE8ECE9-BEF0-4BBF-BD15-B3D5375C1F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE8ECE9-BEF0-4BBF-BD15-B3D5375C1F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE8ECE9-BEF0-4BBF-BD15-B3D5375C1F42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
