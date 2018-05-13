@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\ZenElementsExecuter\ZenElementsExecuter.cs" Link="ZenElementsExecuter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.6.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ZenCommonNetCore">
+      <HintPath>..\libs\ZenCommonNetCore\netcoreapp2.0\ZenCommonNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCsScriptCore">
+      <HintPath>..\libs\ZenCsScriptCore\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
