@@ -22,3 +22,7 @@
 /Elements/NetCore/ZenAssetReceiver/obj
 /Elements/NetFramework/ZenAssetReceiver/bin
 /Elements/NetFramework/ZenAssetReceiver/obj
+/Elements/NetCore/ZenAssetTransmitter/bin/Debug/netcoreapp2.0
+/Elements/NetFramework/ZenAssetTransmitter/bin
+/Elements/NetFramework/ZenAssetTransmitter/obj
+/Elements/NetCore/ZenAssetTransmitter/obj

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenElementsExecuter", "NetF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenAssetReceiver", "NetFramework\ZenAssetReceiver\ZenAssetReceiver.csproj", "{5F49FF82-3248-4E55-89DA-1EF4BD7BCC16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenAssetTransmitter", "NetFramework\ZenAssetTransmitter\ZenAssetTransmitter.csproj", "{960C0169-5EB4-49C1-80C2-FA5973B61E4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5F49FF82-3248-4E55-89DA-1EF4BD7BCC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F49FF82-3248-4E55-89DA-1EF4BD7BCC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F49FF82-3248-4E55-89DA-1EF4BD7BCC16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{960C0169-5EB4-49C1-80C2-FA5973B61E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{960C0169-5EB4-49C1-80C2-FA5973B61E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{960C0169-5EB4-49C1-80C2-FA5973B61E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{960C0169-5EB4-49C1-80C2-FA5973B61E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
