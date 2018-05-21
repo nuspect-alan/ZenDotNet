@@ -106,6 +106,7 @@ namespace ZenAssetReceiver
         static Dictionary<string, ZenAssetReceiver> _implementations = new Dictionary<string, ZenAssetReceiver>();
         #endregion
 
+        #region InitManagedNodes
         unsafe public static void InitManagedNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getNodeResultCallback, ZenNativeHelpers.ExecuteNode executeNodeCallback, ZenNativeHelpers.SetNodeProperty setNodeProperty)
         {
             if (!_implementations.ContainsKey(currentNodeId))
@@ -113,7 +114,9 @@ namespace ZenAssetReceiver
 
             ZenNativeHelpers.InitManagedNodes(currentNodeId, nodes, nodesCount, projectRoot, projectId, getNodePropertyCallback, getNodeResultInfoCallback, getNodeResultCallback, executeNodeCallback, setNodeProperty);
         }
+        #endregion
 
+        #region OnNodeInit
         unsafe public static void OnNodeInit(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
         {
             IElement element = (ZenNativeHelpers.Nodes[currentNodeId] as IElement);
@@ -131,6 +134,9 @@ namespace ZenAssetReceiver
             implementation._licenceId = element.GetElementProperty("LICENCE_ID");
             implementation._web3 = new Web3(implementation._ethProviderUrl);
         }
+        #endregion
+
+        #region ExecuteAction
         unsafe public static void ExecuteAction(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
         {
             IElement element = (ZenNativeHelpers.Nodes[currentNodeId] as IElement);
@@ -141,6 +147,7 @@ namespace ZenAssetReceiver
 
             ZenNativeHelpers.CopyManagedStringToUnmanagedMemory(string.Empty, result);
         }
+        #endregion
 #else
         #region IZenElementInit implementations
         #region OnElementInit
