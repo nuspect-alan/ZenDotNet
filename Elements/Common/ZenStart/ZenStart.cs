@@ -4,7 +4,6 @@ using System.Collections;
 
 namespace ZenStart
 {
-    //
     public class ZenStart : IZenStart, IZenAction
     {
         #region Fields
