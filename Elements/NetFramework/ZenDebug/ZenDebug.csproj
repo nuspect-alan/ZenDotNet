@@ -43,9 +43,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\..\libs\HtmlAgilityPack\1.4.6.0\net47\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,13 +54,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZenCommonNetFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2130293b60038b3c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\ZenCommonNetFramework\ZenCommonNetFramework.dll</HintPath>
+    <Reference Include="ZenCommonNetFramework">
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\net47\ZenCommonNetFramework.dll</HintPath>
     </Reference>
-    <Reference Include="ZenCsScriptCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=2130293b60038b3c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\ZenCsScriptCore\ZenCsScriptCore.dll</HintPath>
+    <Reference Include="ZenCsScriptCore">
+      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\net47\ZenCsScriptCore.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

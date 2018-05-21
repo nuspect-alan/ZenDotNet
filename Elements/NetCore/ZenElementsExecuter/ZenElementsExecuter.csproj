@@ -23,10 +23,10 @@
 
   <ItemGroup>
     <Reference Include="ZenCommonNetCore">
-      <HintPath>..\libs\ZenCommonNetCore\netcoreapp2.0\ZenCommonNetCore.dll</HintPath>
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommonNetCore.dll</HintPath>
     </Reference>
     <Reference Include="ZenCsScriptCore">
-      <HintPath>..\libs\ZenCsScriptCore\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 

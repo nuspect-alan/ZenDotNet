@@ -18,3 +18,7 @@
 /Elements/NetFramework/ZenElementsExecuter/obj
 /Elements/NetCore/ZenElementsExecuter/bin
 /Elements/NetCore/ZenElementsExecuter/obj
+/Elements/NetCore/ZenAssetReceiver/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenAssetReceiver/obj
+/Elements/NetFramework/ZenAssetReceiver/bin
+/Elements/NetFramework/ZenAssetReceiver/obj

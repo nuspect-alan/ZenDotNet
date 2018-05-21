@@ -49,6 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ZenReferences\ZenCommonNetFramework\ZenCommonNetFramework.dll</HintPath>
     </Reference>
+    <Reference Include="ZenCsScriptCore">
+      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Common\ZenStart\ZenStart.cs">
