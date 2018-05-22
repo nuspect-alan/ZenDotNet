@@ -30,3 +30,7 @@
 /ZenCommon/NetCore/.vs/ZenCommonNetCore
 /ZenCommon/NetCore/bin
 /ZenCommon/NetCore/obj
+/ZenCommon/.vs
+/ZenCommon/NetFramework/.vs/ZenCommonNetFramework/v15
+/ZenCommon/NetFramework/bin
+/ZenCommon/NetFramework/obj
