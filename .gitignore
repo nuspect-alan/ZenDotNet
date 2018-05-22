@@ -41,3 +41,7 @@
 /Elements/Libs/NetFramework/ZenCsScriptCore/.vs/ZenCsScriptCore/v15/Server/sqlite3
 /Elements/Libs/NetFramework/ZenCsScriptCore/bin
 /Elements/Libs/NetFramework/ZenCsScriptCore/obj
+/Elements/NetCore/ZenCsScript/bin
+/Elements/NetCore/ZenCsScript/obj
+/Elements/NetFramework/ZenCsScript/bin
+/Elements/NetFramework/ZenCsScript/obj
