@@ -26,3 +26,7 @@
 /Elements/NetFramework/ZenAssetTransmitter/bin
 /Elements/NetFramework/ZenAssetTransmitter/obj
 /Elements/NetCore/ZenAssetTransmitter/obj
+/ZenCommon/.vs/ZenCommonDotNetCore/v15
+/ZenCommon/NetCore/.vs/ZenCommonNetCore
+/ZenCommon/NetCore/bin
+/ZenCommon/NetCore/obj
