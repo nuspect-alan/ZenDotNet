@@ -40,8 +40,8 @@
     <Reference Include="Nethereum.Web3">
       <HintPath>..\..\..\libs\Nethereum.Web3\Nethereum.Web3.2.4.0\lib\netstandard1.1\Nethereum.Web3.dll</HintPath>
     </Reference>
-    <Reference Include="ZenCommonNetCore">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommonNetCore.dll</HintPath>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
     </Reference>
   </ItemGroup>
 

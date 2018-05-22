@@ -54,8 +54,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZenCommonNetFramework">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\net47\ZenCommonNetFramework.dll</HintPath>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\net47\ZenCommon.dll</HintPath>
     </Reference>
     <Reference Include="ZenCsScriptCore">
       <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\net47\ZenCsScriptCore.dll</HintPath>
