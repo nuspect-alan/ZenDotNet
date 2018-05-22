@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\Debug</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\ZenCsScriptCore\IZenCsScript.cs" Link="IZenCsScript.cs" />
+    <Compile Include="..\..\Common\ZenCsScriptCore\ZenCsScriptCore.cs" Link="ZenCsScriptCore.cs" />
+    <Compile Include="..\..\Common\ZenCsScriptCore\ZenCsScriptData.cs" Link="ZenCsScriptData.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreCompat.Newtonsoft.Json" Version="9.0.2-beta001" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.6.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

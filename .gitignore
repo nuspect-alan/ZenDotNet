@@ -34,3 +34,10 @@
 /ZenCommon/NetFramework/.vs/ZenCommonNetFramework/v15
 /ZenCommon/NetFramework/bin
 /ZenCommon/NetFramework/obj
+/Elements/Libs/.vs
+/Elements/Libs/NetCore/ZenCsScriptCore/.vs/ZenCsScriptCore
+/Elements/Libs/NetCore/ZenCsScriptCore/bin
+/Elements/Libs/NetCore/ZenCsScriptCore/obj
+/Elements/Libs/NetFramework/ZenCsScriptCore/.vs/ZenCsScriptCore/v15/Server/sqlite3
+/Elements/Libs/NetFramework/ZenCsScriptCore/bin
+/Elements/Libs/NetFramework/ZenCsScriptCore/obj
