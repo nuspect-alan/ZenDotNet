@@ -1,13 +1,10 @@
-﻿using CommonInterfaces;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
-#if NETCOREAPP2_0
-using ZenCommonNetCore;
-#endif
+using ZenCommon;
 using System;
 
 namespace ZenCsScript
@@ -33,12 +30,12 @@ namespace ZenCsScript
         static Dictionary<string, ZenCsScript> _implementations = new Dictionary<string, ZenCsScript>();
         #endregion
 
-        unsafe public static string GetDynamicNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getNodeResultCallback, ZenNativeHelpers.ExecuteNode execNodeCallback, ZenNativeHelpers.SetNodeProperty setNodeProperty)
+        unsafe public static string GetDynamicElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.ExecuteElement execElementCallback, ZenNativeHelpers.SetElementProperty setElementProperty)
         {
             string pluginsToExecute = string.Empty;
 
-            ZenNativeHelpers.InitManagedNodes(currentNodeId, nodes, nodesCount, projectRoot, projectId, getNodePropertyCallback, getNodeResultInfoCallback, getNodeResultCallback, execNodeCallback, setNodeProperty);
-            foreach (Match match in Regex.Matches((ZenNativeHelpers.Nodes[currentNodeId] as IElement).GetElementProperty("SCRIPT_TEXT").Replace("&quot;", "\""), @"exec(.*?);"))
+            ZenNativeHelpers.InitManagedElements(currentElementId, elements, elementsCount, projectRoot, projectId, getElementPropertyCallback, getElementResultInfoCallback, getElementResultCallback, execElementCallback, setElementProperty);
+            foreach (Match match in Regex.Matches((ZenNativeHelpers.Elements[currentElementId] as IElement).GetElementProperty("SCRIPT_TEXT").Replace("&quot;", "\""), @"exec(.*?);"))
             {
                 var elementMatch = match.Groups[1].Value;
                 int i = 0;
@@ -56,24 +53,24 @@ namespace ZenCsScript
             return pluginsToExecute;
         }
 
-        unsafe public static void InitManagedNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getNodeResultCallback, ZenNativeHelpers.ExecuteNode executeNodeCallback)
+        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.ExecuteElement executeElementCallback)
         {
-            if (!_implementations.ContainsKey(currentNodeId))
-                _implementations.Add(currentNodeId, new ZenCsScript());
+            if (!_implementations.ContainsKey(currentElementId))
+                _implementations.Add(currentElementId, new ZenCsScript());
         }
-        unsafe public static void OnElementInit(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
+        unsafe public static void OnElementInit(string currentElementId, void** elements, int elementsCount, IntPtr result)
         {
-            lock (_implementations[currentNodeId]._syncCsScript)
+            lock (_implementations[currentElementId]._syncCsScript)
             {
-                _implementations[currentNodeId]._scriptData = ZenCsScriptCore.Initialize((ZenNativeHelpers.Nodes[currentNodeId] as IElement).GetElementProperty("SCRIPT_TEXT"), ZenNativeHelpers.Nodes, (ZenNativeHelpers.Nodes[currentNodeId] as IElement), Path.Combine("tmp", "CsScript", (ZenNativeHelpers.Nodes[currentNodeId] as IElement).ID + ".zen"), ZenNativeHelpers.ParentBoard, (ZenNativeHelpers.Nodes[currentNodeId] as IElement).GetElementProperty("PRINT_CODE") == "1");
+                _implementations[currentElementId]._scriptData = ZenCsScriptCore.Initialize((ZenNativeHelpers.Elements[currentElementId] as IElement).GetElementProperty("SCRIPT_TEXT"), ZenNativeHelpers.Elements, (ZenNativeHelpers.Elements[currentElementId] as IElement), Path.Combine("tmp", "CsScript", (ZenNativeHelpers.Elements[currentElementId] as IElement).ID + ".zen"), ZenNativeHelpers.ParentBoard, (ZenNativeHelpers.Elements[currentElementId] as IElement).GetElementProperty("PRINT_CODE") == "1");
             }
         }
 
-        unsafe public static void ExecuteAction(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
+        unsafe public static void ExecuteAction(string currentElementId, void** elements, int elementsCount, IntPtr result)
         {
             //Set result here, because can user set it in script
-            (ZenNativeHelpers.Nodes[currentNodeId] as IElement).IsConditionMet = true;
-            _implementations[currentNodeId]._scriptData.ZenCsScript.RunCustomCode(_implementations[currentNodeId]._scriptData.ScriptDoc.DocumentNode.Descendants("code").FirstOrDefault().Attributes["id"].Value);
+            (ZenNativeHelpers.Elements[currentElementId] as IElement).IsConditionMet = true;
+            _implementations[currentElementId]._scriptData.ZenCsScript.RunCustomCode(_implementations[currentElementId]._scriptData.ScriptDoc.DocumentNode.Descendants("code").FirstOrDefault().Attributes["id"].Value);
             ZenNativeHelpers.CopyManagedStringToUnmanagedMemory(string.Empty, result);
         }
 #else

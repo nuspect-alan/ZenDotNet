@@ -1,10 +1,9 @@
-﻿using CommonInterfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZenCommonNetCore
+namespace ZenCommon
 {
     public class GadgeteerBoard : IGadgeteerBoard
     {

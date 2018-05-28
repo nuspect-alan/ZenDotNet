@@ -1,16 +1,5 @@
-﻿using CommonInterfaces;
-using HtmlAgilityPack;
-#if NETCOREAPP2_0
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using ZenCommonNetCore;
-#else
-using Microsoft.CSharp;
-using System.CodeDom.Compiler;
-#endif
-using Newtonsoft.Json.Linq;
-using System;
-
+﻿using System;
+using ZenCommon;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -18,6 +7,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
+#if NETCOREAPP2_0
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+#else
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+#endif
 
 public class ZenCsScriptCore
 {
@@ -92,11 +90,11 @@ public class ZenCsScriptCore
 #if NETCOREAPP2_0
             deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "ZenCsScriptCore.dll"));
             deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "Newtonsoft.Json.dll"));
-            deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "ZenCommonNetCore.dll"));
+            deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "ZenCommon.dll"));
 #else
             deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Dependencies", "ZenCsScriptCore", "1.0.0.0", "ZenCsScriptCore.dll"));
             deaultReferences.Add(Path.Combine(Environment.CurrentDirectory, "Newtonsoft.Json.dll"));
-            deaultReferences.Add(Path.Combine(Environment.CurrentDirectory, "ZenCommonNetFramework.dll"));
+            deaultReferences.Add(Path.Combine(Environment.CurrentDirectory, "ZenCommon.dll"));
 #endif
 
             string[] references = GetReferences(headerNode, deaultReferences, ParentBoard).ToArray();
@@ -412,7 +410,7 @@ public class ZenCsScriptCore
     {
         return
                         "using System;" +
-                        "using CommonInterfaces;" +
+                        "using ZenCommon;" +
                         "using Newtonsoft.Json;" +
                         "using Newtonsoft.Json.Linq;" +
                         "using System.Collections;" +

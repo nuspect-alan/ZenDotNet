@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     public enum ElementStatus { STOPPED, RUNNING, ARRIVED }
     public interface IElement

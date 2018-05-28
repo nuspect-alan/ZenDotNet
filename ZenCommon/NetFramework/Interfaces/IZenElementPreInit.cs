@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     //It runs on main thread, and it's executed for each element when nodes are filled to collection. It's thread safe
     //Warning : boot time is affected

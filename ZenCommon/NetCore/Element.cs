@@ -1,16 +1,15 @@
-﻿using CommonInterfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ZenCommonNetCore
+namespace ZenCommon
 {
-    public class Node : IElement
+    public class Element : IElement
     {
         #region Constructor
-        public Node(string id)
+        public Element(string id)
         {
             this.ID = id;
         }
@@ -31,10 +30,10 @@ namespace ZenCommonNetCore
         {
             get
             {
-                // Obtain pointer to node result. Warning - node result pointer must already be initialized in this step.
+                // Obtain pointer to element result. Warning - element result pointer must already be initialized in this step.
                 // Unmanaged code is responsible to allocate pointer before this function call
                 if (_ptrResult == null)
-                    _ptrResult = ZenNativeHelpers.GetNodeResultCallback(this.ID);
+                    _ptrResult = ZenNativeHelpers.GetElementResultCallback(this.ID);
 
                 return _ptrResult;
             }
@@ -66,11 +65,11 @@ namespace ZenCommonNetCore
                 if (!this.IsManagedElement)
                 {
                     if (_resultType < 0)
-                        _resultType = ZenNativeHelpers.GetNodeResultInfoCallback(this.ID);
+                        _resultType = ZenNativeHelpers.GetElementResultInfoCallback(this.ID);
 
                     switch (_resultType)
                     {
-                        case (int)ZenNativeHelpers.NodeResultType.RESULT_TYPE_INT:
+                        case (int)ZenNativeHelpers.ElementResultType.RESULT_TYPE_INT:
                             return *((int*)PtrResultInstance[0]);
 
                         default:
@@ -105,17 +104,17 @@ namespace ZenCommonNetCore
         #region Methods
         public void SetElementProperty(string key, string value)
         {
-            ZenNativeHelpers.SetNodePropertyCallback(this.ID, key, value);
+            ZenNativeHelpers.SetElementPropertyCallback(this.ID, key, value);
         }
 
         public string GetElementProperty(string key)
         {
-            return ZenNativeHelpers.GetNodePropertyCallback(this.ID, key);
+            return ZenNativeHelpers.GetElementPropertyCallback(this.ID, key);
         }
 
         public void StartElement(Hashtable elements, bool Async)
         {
-            ZenNativeHelpers.ExecuteNodeCallback(this.ID);
+            ZenNativeHelpers.ExecuteElementCallback(this.ID);
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿using CommonInterfaces;
+﻿using ZenCommon;
 using Nethereum.Signer;
 using Nethereum.Web3;
 using System;
@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 #if NETCOREAPP2_0
-using ZenCommonNetCore;
 using System.Collections.Generic;
 #endif
 
@@ -106,21 +105,21 @@ namespace ZenAssetReceiver
         static Dictionary<string, ZenAssetReceiver> _implementations = new Dictionary<string, ZenAssetReceiver>();
         #endregion
 
-        #region InitManagedNodes
-        unsafe public static void InitManagedNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getNodeResultCallback, ZenNativeHelpers.ExecuteNode executeNodeCallback, ZenNativeHelpers.SetNodeProperty setNodeProperty)
+        #region InitManagedElements
+        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.ExecuteElement executeElementCallback, ZenNativeHelpers.SetElementProperty setElementProperty)
         {
-            if (!_implementations.ContainsKey(currentNodeId))
-                _implementations.Add(currentNodeId, new ZenAssetReceiver());
+            if (!_implementations.ContainsKey(currentElementId))
+                _implementations.Add(currentElementId, new ZenAssetReceiver());
 
-            ZenNativeHelpers.InitManagedNodes(currentNodeId, nodes, nodesCount, projectRoot, projectId, getNodePropertyCallback, getNodeResultInfoCallback, getNodeResultCallback, executeNodeCallback, setNodeProperty);
+            ZenNativeHelpers.InitManagedElements(currentElementId, elements, elementsCount, projectRoot, projectId, getElementPropertyCallback, getElementResultInfoCallback, getElementResultCallback, executeElementCallback, setElementProperty);
         }
         #endregion
 
-        #region OnNodeInit
-        unsafe public static void OnNodeInit(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
+        #region OnElementInit
+        unsafe public static void OnElementInit(string currentElementId, void** elements, int elementsCount, IntPtr result)
         {
-            IElement element = (ZenNativeHelpers.Nodes[currentNodeId] as IElement);
-            ZenAssetReceiver implementation = _implementations[currentNodeId];
+            IElement element = (ZenNativeHelpers.Elements[currentElementId] as IElement);
+            ZenAssetReceiver implementation = _implementations[currentElementId];
 
             implementation._serverIp = element.GetElementProperty("SERVER_IP");
             implementation._serverPort = Convert.ToInt32(element.GetElementProperty("SERVER_PORT"));
@@ -137,10 +136,10 @@ namespace ZenAssetReceiver
         #endregion
 
         #region ExecuteAction
-        unsafe public static void ExecuteAction(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
+        unsafe public static void ExecuteAction(string currentElementId, void** elements, int elementsCount, IntPtr result)
         {
-            IElement element = (ZenNativeHelpers.Nodes[currentNodeId] as IElement);
-            ZenAssetReceiver implementation = _implementations[currentNodeId];
+            IElement element = (ZenNativeHelpers.Elements[currentElementId] as IElement);
+            ZenAssetReceiver implementation = _implementations[currentElementId];
             implementation.SendAssetRequest();
             implementation.WaitAssetResponse(element);
             element.IsConditionMet = true;

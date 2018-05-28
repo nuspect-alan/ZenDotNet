@@ -1,4 +1,4 @@
-﻿namespace CommonInterfaces
+﻿namespace ZenCommon
 {
     public interface IZenImplementation
     {

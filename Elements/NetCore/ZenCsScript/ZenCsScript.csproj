@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\Common\ZenCsScript\ZenCsScript.cs" Link="ZenCsScript.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.6.2" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Threading;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     public delegate void OnElementStopExecuting(object sender, IElement args);
     public delegate void OnReboot(object sender, EventArgs arg);

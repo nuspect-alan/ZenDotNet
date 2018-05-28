@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     public delegate void ModuleEventHandler(object sender, ModuleEventData e);
     public class ModuleEventData

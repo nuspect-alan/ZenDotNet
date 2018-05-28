@@ -7,7 +7,7 @@
     <ProjectGuid>{61294870-70B8-4F0B-AFA9-46DE97A418F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZenCommonNetFramework</RootNamespace>
+    <RootNamespace>ZenCommon</RootNamespace>
     <AssemblyName>ZenCommon</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

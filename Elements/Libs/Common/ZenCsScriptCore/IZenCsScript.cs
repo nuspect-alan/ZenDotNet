@@ -1,4 +1,4 @@
-﻿using CommonInterfaces;
+﻿using ZenCommon;
 using System.Collections;
 
 public interface IZenCsScript

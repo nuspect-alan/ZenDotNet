@@ -1,13 +1,10 @@
-﻿using CommonInterfaces;
+﻿using ZenCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-#if NETCOREAPP2_0
-using ZenCommonNetCore;
-#endif
 
 namespace ZenDebug
 {
@@ -32,16 +29,16 @@ namespace ZenDebug
         static Dictionary<string, ZenDebug> _implementations = new Dictionary<string, ZenDebug>();
         #endregion
 
-        unsafe public static void InitManagedNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getNodeResultCallback, ZenNativeHelpers.ExecuteNode executeNodeCallback, ZenNativeHelpers.SetNodeProperty setNodeProperty)
+        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.ExecuteElement executeElementCallback, ZenNativeHelpers.SetElementProperty setElementProperty)
         {
-            if (!_implementations.ContainsKey(currentNodeId))
-                _implementations.Add(currentNodeId, new ZenDebug());
+            if (!_implementations.ContainsKey(currentElementId))
+                _implementations.Add(currentElementId, new ZenDebug());
 
-            ZenNativeHelpers.InitManagedNodes(currentNodeId, nodes, nodesCount, projectRoot, projectId, getNodePropertyCallback, getNodeResultInfoCallback, getNodeResultCallback, executeNodeCallback, setNodeProperty);
+            ZenNativeHelpers.InitManagedElements(currentElementId, elements, elementsCount, projectRoot, projectId, getElementPropertyCallback, getElementResultInfoCallback, getElementResultCallback, executeElementCallback, setElementProperty);
         }
-        unsafe public static void ExecuteAction(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
+        unsafe public static void ExecuteAction(string currentElementId, void** elements, int elementsCount, IntPtr result)
         {
-            _implementations[currentNodeId].PrintText(ZenNativeHelpers.Nodes, ZenNativeHelpers.Nodes[currentNodeId] as IElement, ZenNativeHelpers.ParentBoard);
+            _implementations[currentElementId].PrintText(ZenNativeHelpers.Elements, ZenNativeHelpers.Elements[currentElementId] as IElement, ZenNativeHelpers.ParentBoard);
             ZenNativeHelpers.CopyManagedStringToUnmanagedMemory(string.Empty, result);
         }
 #else

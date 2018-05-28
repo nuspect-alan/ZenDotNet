@@ -1,7 +1,7 @@
 ﻿using System;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     public interface IZenMqtt
     {

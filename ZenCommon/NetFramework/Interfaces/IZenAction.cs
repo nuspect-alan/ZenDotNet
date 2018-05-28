@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     public interface IZenAction : IZenImplementation
     {

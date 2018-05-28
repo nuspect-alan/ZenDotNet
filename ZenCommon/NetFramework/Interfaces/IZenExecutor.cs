@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace CommonInterfaces
+namespace ZenCommon
 {
     public interface IZenExecutor
     {

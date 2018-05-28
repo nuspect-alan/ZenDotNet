@@ -8,14 +8,13 @@ using System.IO;
 using System.Runtime.Versioning;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using CommonInterfaces;
 using System.Collections;
 
-namespace ZenCommonNetCore
+namespace ZenCommon
 {
     public class ZenNativeHelpers
     {
-        public enum NodeResultType
+        public enum ElementResultType
         {
             RESULT_TYPE_INT,
             RESULT_TYPE_BOOL,
@@ -24,75 +23,75 @@ namespace ZenCommonNetCore
             RESULT_TYPE_JSON_STRING
         }
 
-        static Hashtable _nodes;
+        static Hashtable _elements;
         static IGadgeteerBoard _elementBoard;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate IntPtr GetNodeProperty(string nodeId, string key);
+        public delegate IntPtr GetElementProperty(string elementId, string key);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate void SetNodeProperty(string nodeId, string key, string value);
+        public delegate void SetElementProperty(string elementId, string key, string value);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int GetNodeResultInfo(string nodeId);
+        public delegate int GetElementResultInfo(string elementId);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        unsafe public delegate void** GetNodeResult(string nodeId);
+        unsafe public delegate void** GetElementResult(string elementId);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        unsafe public delegate void ExecuteNode(string nodeId);
+        unsafe public delegate void ExecuteElement(string elementId);
 
-        static GetNodeProperty _getNodePropertyCallback;
-        static SetNodeProperty _setNodePropertyCallback;
-        static GetNodeResultInfo _getNodeResultInfoCallback;
-        static GetNodeResult _getNodeResultCallback;
-        static ExecuteNode _executeNodeCallback;
+        static GetElementProperty _getElementPropertyCallback;
+        static SetElementProperty _setElementPropertyCallback;
+        static GetElementResultInfo _getElementResultInfoCallback;
+        static GetElementResult _getElementResultCallback;
+        static ExecuteElement _executeElementCallback;
 
-        public static void SetNodePropertyCallback(string nodeId, string key, string value)
+        public static void SetElementPropertyCallback(string elementId, string key, string value)
         {
-            _setNodePropertyCallback(nodeId, key, value);
+            _setElementPropertyCallback(elementId, key, value);
         }
 
-        public static string GetNodePropertyCallback(string nodeId, string key)
+        public static string GetElementPropertyCallback(string elementId, string key)
         {
-            return Marshal.PtrToStringUTF8(_getNodePropertyCallback(nodeId, key));
+            return Marshal.PtrToStringUTF8(_getElementPropertyCallback(elementId, key));
         }
 
-        public static int GetNodeResultInfoCallback(string nodeId)
+        public static int GetElementResultInfoCallback(string elementId)
         {
-            return _getNodeResultInfoCallback(nodeId);
+            return _getElementResultInfoCallback(elementId);
         }
 
-        unsafe public static void** GetNodeResultCallback(string nodeId)
+        unsafe public static void** GetElementResultCallback(string elementId)
         {
-            return _getNodeResultCallback(nodeId);
+            return _getElementResultCallback(elementId);
         }
 
-        unsafe public static void ExecuteNodeCallback(string nodeId)
+        unsafe public static void ExecuteElementCallback(string elementId)
         {
-            _executeNodeCallback(nodeId);
+            _executeElementCallback(elementId);
         }
 
-        unsafe public static void InitManagedNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, GetNodeProperty getNodePropertyCallback, GetNodeResultInfo getNodeResultInfoCallback, GetNodeResult getnodeResultCallback, ExecuteNode executeNodeCallback, SetNodeProperty setNodePropertyCallback)
+        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, GetElementProperty getElementPropertyCallback, GetElementResultInfo getElementResultInfoCallback, GetElementResult getElementResultCallback, ExecuteElement executeElementCallback, SetElementProperty setElementPropertyCallback)
         {
-            if (_nodes == null)
+            if (_elements == null)
             {
-                _nodes = new Hashtable();
-                IntPtr ptr = (IntPtr)((IntPtr)nodes);
-                for (int i = 0; i < nodesCount; i++)
+                _elements = new Hashtable();
+                IntPtr ptr = (IntPtr)((IntPtr)elements);
+                for (int i = 0; i < elementsCount; i++)
                 {
-                    STRUCT_NODE node = (STRUCT_NODE)Marshal.PtrToStructure(ptr, typeof(STRUCT_NODE));
-                    _nodes.Add(node.id, new Node(node.id));
-                    ptr += Marshal.SizeOf(typeof(STRUCT_NODE));
+                    STRUCT_ELEMENT element = (STRUCT_ELEMENT)Marshal.PtrToStructure(ptr, typeof(STRUCT_ELEMENT));
+                    _elements.Add(element.id, new Element (element.id));
+                    ptr += Marshal.SizeOf(typeof(STRUCT_ELEMENT));
                 }
-                _getNodePropertyCallback = getNodePropertyCallback;
-                _getNodeResultInfoCallback = getNodeResultInfoCallback;
-                _getNodeResultCallback = getnodeResultCallback;
-                _executeNodeCallback = executeNodeCallback;
-                _setNodePropertyCallback = setNodePropertyCallback;
+                _getElementPropertyCallback = getElementPropertyCallback;
+                _getElementResultInfoCallback = getElementResultInfoCallback;
+                _getElementResultCallback = getElementResultCallback;
+                _executeElementCallback = executeElementCallback;
+                _setElementPropertyCallback = setElementPropertyCallback;
             }
 
-            (_nodes[currentNodeId] as IElement).IsManagedElement = true;
+            (_elements[currentElementId] as IElement).IsManagedElement = true;
 
             if (_elementBoard == null)
                 _elementBoard = new GadgeteerBoard(projectRoot, projectId);
@@ -111,9 +110,9 @@ namespace ZenCommonNetCore
             Marshal.FreeHGlobal(ptr);
         }
 
-        public static Hashtable Nodes
+        public static Hashtable Elements
         {
-            get { return _nodes; }
+            get { return _elements; }
         }
 
         public static IGadgeteerBoard ParentBoard

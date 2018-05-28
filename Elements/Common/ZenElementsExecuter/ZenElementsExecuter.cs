@@ -1,5 +1,4 @@
-﻿using CommonInterfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,9 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-#if NETCOREAPP2_0
-using ZenCommonNetCore;
-#endif
+using ZenCommon;
+
 namespace ZenElementsExecuter
 {
 #if NETCOREAPP2_0
@@ -40,12 +38,12 @@ namespace ZenElementsExecuter
         #endregion
 
         #region Core implementations
-        #region GetDynamicNodes
-        unsafe public static string GetDynamicNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getNodeResultCallback, ZenNativeHelpers.ExecuteNode execNodeCallback, ZenNativeHelpers.SetNodeProperty setNodeProperty)
+        #region GetDynamicElements
+        unsafe public static string GetDynamicElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.ExecuteElement execElementCallback, ZenNativeHelpers.SetElementProperty setElementProperty)
         {
-            ZenNativeHelpers.InitManagedNodes(currentNodeId, nodes, nodesCount, projectRoot, projectId, getNodePropertyCallback, getNodeResultInfoCallback, getNodeResultCallback, execNodeCallback, setNodeProperty);
+            ZenNativeHelpers.InitManagedElements(currentElementId, elements, elementsCount, projectRoot, projectId, getElementPropertyCallback, getElementResultInfoCallback, getElementResultCallback, execElementCallback, setElementProperty);
             string pluginsToExecute = string.Empty;
-            foreach (string outer in (Regex.Split((ZenNativeHelpers.Nodes[currentNodeId] as IElement).GetElementProperty("ELEMENTS_TO_EXECUTE"), "#101#")))
+            foreach (string outer in (Regex.Split((ZenNativeHelpers.Elements [currentElementId] as IElement).GetElementProperty("ELEMENTS_TO_EXECUTE"), "#101#")))
             {
                 if (!string.IsNullOrEmpty(Regex.Split(outer, "#100#")[0].Trim()))
                     pluginsToExecute += Regex.Split(outer, "#100#")[0].Trim() + ",";
@@ -54,18 +52,18 @@ namespace ZenElementsExecuter
         }
         #endregion
 
-        #region InitManagedNodes
-        unsafe public static void InitManagedNodes(string currentNodeId, void** nodes, int nodesCount, string projectRoot, string projectId, ZenNativeHelpers.GetNodeProperty getNodePropertyCallback, ZenNativeHelpers.GetNodeResultInfo getNodeResultInfoCallback, ZenNativeHelpers.GetNodeResult getnodeResultCallback)
+        #region InitManagedElements
+        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback)
         {
-            if (!_implementations.ContainsKey(currentNodeId))
-                _implementations.Add(currentNodeId, new ZenElementsExecuter());
+            if (!_implementations.ContainsKey(currentElementId))
+                _implementations.Add(currentElementId, new ZenElementsExecuter());
         }
         #endregion
 
         #region ExecuteAction
-        unsafe public static void ExecuteAction(string currentNodeId, void** nodes, int nodesCount, IntPtr result)
+        unsafe public static void ExecuteAction(string currentElementId, void** elements, int elementsCount, IntPtr result)
         {
-            ZenNativeHelpers.CopyManagedStringToUnmanagedMemory(_implementations[currentNodeId].RunConditions(ZenNativeHelpers.Nodes, ZenNativeHelpers.Nodes[currentNodeId] as IElement, ZenNativeHelpers.ParentBoard), result);
+            ZenNativeHelpers.CopyManagedStringToUnmanagedMemory(_implementations[currentElementId].RunConditions(ZenNativeHelpers.Elements, ZenNativeHelpers.Elements[currentElementId] as IElement, ZenNativeHelpers.ParentBoard), result);
         }
         #endregion
         #endregion
