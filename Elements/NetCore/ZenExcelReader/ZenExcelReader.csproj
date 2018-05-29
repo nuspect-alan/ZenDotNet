@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\ZenExcelReader\ZenExcelReader.cs" Link="ZenExcelReader.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ExcelDataReader">
+      <HintPath>..\..\..\libs\ExcelDataReader\ExcelDataReader.3.4.0\lib\netstandard2.0\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet">
+      <HintPath>..\..\..\libs\ExcelDataReader\ExcelDataReader.DataSet.3.4.0\lib\netstandard2.0\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -45,3 +45,7 @@
 /Elements/NetCore/ZenCsScript/obj
 /Elements/NetFramework/ZenCsScript/bin
 /Elements/NetFramework/ZenCsScript/obj
+/Elements/NetFramework/ZenExcelReader/bin
+/Elements/NetFramework/ZenExcelReader/obj
+/Elements/NetCore/ZenExcelReader/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenExcelReader/obj
