@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27617.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenCsScriptCore", "NetFramework\ZenCsScriptCore\ZenCsScriptCore.csproj", "{B4934B02-4827-46E0-ABCA-AC1177927B0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenCsScriptCore", "src\NetFramework\ZenCsScriptCore\ZenCsScriptCore.csproj", "{B4934B02-4827-46E0-ABCA-AC1177927B0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

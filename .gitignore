@@ -53,3 +53,13 @@
 /Elements/NetFramework/ZenWebServer/obj
 /Elements/ZenWebServer/bin/Debug/netcoreapp2.0
 /Elements/ZenWebServer/obj
+/Elements/NetCore/ZenWebServer/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenWebServer/obj
+/libs/.vs
+/libs/src/.vs
+/libs/src/NetCore/ZenCsScriptCore/.vs/ZenCsScriptCore
+/libs/src/NetCore/ZenCsScriptCore/bin
+/libs/src/NetCore/ZenCsScriptCore/obj
+/libs/src/NetFramework/ZenCsScriptCore/.vs/ZenCsScriptCore/v15/Server/sqlite3
+/libs/src/NetFramework/ZenCsScriptCore/bin
+/libs/src/NetFramework/ZenCsScriptCore/obj
