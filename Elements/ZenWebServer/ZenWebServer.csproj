@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common\ZenWebServer\UserMapper.cs" Link="UserMapper.cs" />
+    <Compile Include="..\Common\ZenWebServer\ZenBootstrapper.cs" Link="ZenBootstrapper.cs" />
+    <Compile Include="..\Common\ZenWebServer\ZenLoginModule.cs" Link="ZenLoginModule.cs" />
+    <Compile Include="..\Common\ZenWebServer\ZenWebServer.cs" Link="ZenWebServer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\..\libs\CoreClrMicrosoft\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\..\libs\CoreClrMicrosoft\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel">
+      <HintPath>..\..\libs\Microsoft.Extensions.DependencyModel\2.1.0-rc1\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy">
+      <HintPath>..\..\libs\Nancy\Nancy\2.0.0.0\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Basic">
+      <HintPath>..\..\libs\Nancy\Nancy.Authentication.Basic\2.0.0.0\Nancy.Authentication.Basic.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Forms">
+      <HintPath>..\..\libs\Nancy\Nancy.Authentication.Forms\2.0.0.0\Nancy.Authentication.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self">
+      <HintPath>..\..\libs\Nancy\Nancy.Hosting.Self\2.0.0.0\Nancy.Hosting.Self.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.ViewEngines.Spark">
+      <HintPath>..\..\libs\Nancy\Nancy.ViewEngines.Spark\2.0.0.0\Nancy.ViewEngines.Spark.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCsScriptCore">
+      <HintPath>..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

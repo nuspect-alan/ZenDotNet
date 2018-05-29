@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenCsScript", "NetFramework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenExcelReader", "NetFramework\ZenExcelReader\ZenExcelReader.csproj", "{FDE7B3C8-992C-44FB-836E-7F60898A1892}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenWebServer", "NetFramework\ZenWebServer\ZenWebServer.csproj", "{1B4B0784-3F39-4266-9CD1-8AFC5385A76E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FDE7B3C8-992C-44FB-836E-7F60898A1892}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDE7B3C8-992C-44FB-836E-7F60898A1892}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE7B3C8-992C-44FB-836E-7F60898A1892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4B0784-3F39-4266-9CD1-8AFC5385A76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4B0784-3F39-4266-9CD1-8AFC5385A76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4B0784-3F39-4266-9CD1-8AFC5385A76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4B0784-3F39-4266-9CD1-8AFC5385A76E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

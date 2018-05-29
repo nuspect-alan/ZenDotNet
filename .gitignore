@@ -49,3 +49,7 @@
 /Elements/NetFramework/ZenExcelReader/obj
 /Elements/NetCore/ZenExcelReader/bin/Debug/netcoreapp2.0
 /Elements/NetCore/ZenExcelReader/obj
+/Elements/NetFramework/ZenWebServer/bin
+/Elements/NetFramework/ZenWebServer/obj
+/Elements/ZenWebServer/bin/Debug/netcoreapp2.0
+/Elements/ZenWebServer/obj
