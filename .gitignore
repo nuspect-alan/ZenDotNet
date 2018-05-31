@@ -63,3 +63,7 @@
 /libs/src/NetFramework/ZenCsScriptCore/.vs/ZenCsScriptCore/v15/Server/sqlite3
 /libs/src/NetFramework/ZenCsScriptCore/bin
 /libs/src/NetFramework/ZenCsScriptCore/obj
+/Elements/ZenElementActionCaller/bin/Debug/netcoreapp2.0
+/Elements/ZenElementActionCaller/obj
+/Elements/NetFramework/ZenElementActionCaller/bin
+/Elements/NetFramework/ZenElementActionCaller/obj
