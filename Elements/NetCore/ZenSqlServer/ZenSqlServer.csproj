@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\ZenSqlServer\ZenSqlServer.cs" Link="ZenSqlServer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\..\libs\HtmlAgilityPack\1.6.2\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlClient">
+      <HintPath>..\..\..\libs\system.data.sqlclient\4.5.0-preview1-26216-02\lib\netstandard2.0\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCsScriptCore">
+      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -69,3 +69,7 @@
 /Elements/NetFramework/ZenElementActionCaller/obj
 /Elements/NetCore/ZenElementActionCaller/bin/Debug/netcoreapp2.0
 /Elements/NetCore/ZenElementActionCaller/obj
+/Elements/NetCore/ZenSqlServer/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenSqlServer/obj
+/Elements/NetFramework/ZenSqlServer/bin
+/Elements/NetFramework/ZenSqlServer/obj
