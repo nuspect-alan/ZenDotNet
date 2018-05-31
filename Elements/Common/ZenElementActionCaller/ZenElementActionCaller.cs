@@ -64,7 +64,7 @@ namespace ZenElementActionCaller
         #region ExecuteAction
         public void ExecuteAction(Hashtable elements, IElement element, IElement iAmStartedYou)
         {
-            CallActions(elements, element);
+            CallActions(elements, element, ParentBoard);
         }
         #endregion
         #endregion
