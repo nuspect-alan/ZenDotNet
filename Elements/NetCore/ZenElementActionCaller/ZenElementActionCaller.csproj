@@ -9,18 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Common\ZenElementActionCaller\ZenElementActionCaller.cs" Link="ZenElementActionCaller.cs" />
+    <Compile Include="..\..\Common\ZenElementActionCaller\ZenElementActionCaller.cs" Link="ZenElementActionCaller.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\libs\HtmlAgilityPack\1.6.2\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\libs\HtmlAgilityPack\1.6.2\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="ZenCommon">
-      <HintPath>..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
     </Reference>
     <Reference Include="ZenCsScriptCore">
-      <HintPath>..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
     </Reference>
   </ItemGroup>
 
