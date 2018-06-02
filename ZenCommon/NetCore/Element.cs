@@ -9,9 +9,10 @@ namespace ZenCommon
     public class Element : IElement
     {
         #region Constructor
-        public Element(string id)
+        public Element(string id, IntPtr Ptr)
         {
             this.ID = id;
+            this.Ptr = Ptr;
         }
         #endregion
 
@@ -33,7 +34,7 @@ namespace ZenCommon
                 // Obtain pointer to element result. Warning - element result pointer must already be initialized in this step.
                 // Unmanaged code is responsible to allocate pointer before this function call
                 if (_ptrResult == null)
-                    _ptrResult = ZenNativeHelpers.GetElementResultCallback(this.ID);
+                    _ptrResult = ZenNativeHelpers.GetElementResultCallback(this.Ptr);
 
                 return _ptrResult;
             }
@@ -42,6 +43,7 @@ namespace ZenCommon
         #endregion
 
         #region Properties
+        public IntPtr Ptr { get; set; }
         public IElement IAmStartedYou { get; set; }
 
         public string LastResult { get; set; }
@@ -65,7 +67,7 @@ namespace ZenCommon
                 if (!this.IsManagedElement)
                 {
                     if (_resultType < 0)
-                        _resultType = ZenNativeHelpers.GetElementResultInfoCallback(this.ID);
+                        _resultType = ZenNativeHelpers.GetElementResultInfoCallback(this.Ptr);
 
                     switch (_resultType)
                     {
@@ -104,17 +106,17 @@ namespace ZenCommon
         #region Methods
         public void SetElementProperty(string key, string value)
         {
-            ZenNativeHelpers.SetElementPropertyCallback(this.ID, key, value);
+            ZenNativeHelpers.SetElementPropertyCallback(this.Ptr, key, value);
         }
 
         public string GetElementProperty(string key)
         {
-            return ZenNativeHelpers.GetElementPropertyCallback(this.ID, key);
+            return ZenNativeHelpers.GetElementPropertyCallback(this.Ptr, key);
         }
 
         public void StartElement(Hashtable elements, bool Async)
         {
-            ZenNativeHelpers.ExecuteElementCallback(this.ID);
+            ZenNativeHelpers.ExecuteElementCallback(this.Ptr);
         }
         #endregion
     }

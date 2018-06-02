@@ -9,6 +9,7 @@ namespace ZenCommon
     {
 
         #region Properties
+        IntPtr Ptr { get; set; }
         IElement IAmStartedYou { get; set; }
 
         string LastResult { get; set; }

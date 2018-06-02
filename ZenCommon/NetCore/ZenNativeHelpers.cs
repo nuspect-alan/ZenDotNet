@@ -27,19 +27,19 @@ namespace ZenCommon
         static IGadgeteerBoard _elementBoard;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate IntPtr GetElementProperty(string elementId, string key);
+        public delegate IntPtr GetElementProperty(IntPtr pElement, string key);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate void SetElementProperty(string elementId, string key, string value);
+        public delegate void SetElementProperty(IntPtr pElement, string key, string value);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate int GetElementResultInfo(string elementId);
+        public delegate int GetElementResultInfo(IntPtr pElement);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        unsafe public delegate void** GetElementResult(string elementId);
+        unsafe public delegate void** GetElementResult(IntPtr pElement);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        unsafe public delegate void ExecuteElement(string elementId);
+        unsafe public delegate void ExecuteElement(IntPtr pElement);
 
         static GetElementProperty _getElementPropertyCallback;
         static SetElementProperty _setElementPropertyCallback;
@@ -47,29 +47,29 @@ namespace ZenCommon
         static GetElementResult _getElementResultCallback;
         static ExecuteElement _executeElementCallback;
 
-        public static void SetElementPropertyCallback(string elementId, string key, string value)
+        public static void SetElementPropertyCallback(IntPtr pElement, string key, string value)
         {
-            _setElementPropertyCallback(elementId, key, value);
+            _setElementPropertyCallback(pElement, key, value);
         }
 
-        public static string GetElementPropertyCallback(string elementId, string key)
+        public static string GetElementPropertyCallback(IntPtr ptr, string key)
         {
-            return Marshal.PtrToStringUTF8(_getElementPropertyCallback(elementId, key));
+            return Marshal.PtrToStringUTF8(_getElementPropertyCallback(ptr, key));
         }
 
-        public static int GetElementResultInfoCallback(string elementId)
+        public static int GetElementResultInfoCallback(IntPtr pElement)
         {
-            return _getElementResultInfoCallback(elementId);
+            return _getElementResultInfoCallback(pElement);
         }
 
-        unsafe public static void** GetElementResultCallback(string elementId)
+        unsafe public static void** GetElementResultCallback(IntPtr pElement)
         {
-            return _getElementResultCallback(elementId);
+            return _getElementResultCallback(pElement);
         }
 
-        unsafe public static void ExecuteElementCallback(string elementId)
+        unsafe public static void ExecuteElementCallback(IntPtr pElement)
         {
-            _executeElementCallback(elementId);
+            _executeElementCallback(pElement);
         }
 
         unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, GetElementProperty getElementPropertyCallback, GetElementResultInfo getElementResultInfoCallback, GetElementResult getElementResultCallback, ExecuteElement executeElementCallback, SetElementProperty setElementPropertyCallback)
@@ -81,7 +81,7 @@ namespace ZenCommon
                 for (int i = 0; i < elementsCount; i++)
                 {
                     STRUCT_ELEMENT element = (STRUCT_ELEMENT)Marshal.PtrToStructure(ptr, typeof(STRUCT_ELEMENT));
-                    _elements.Add(element.id, new Element (element.id));
+                    _elements.Add(element.id, new Element(element.id, (IntPtr)element.ptr));
                     ptr += Marshal.SizeOf(typeof(STRUCT_ELEMENT));
                 }
                 _getElementPropertyCallback = getElementPropertyCallback;
