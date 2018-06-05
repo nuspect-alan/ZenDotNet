@@ -1,0 +1,17 @@
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\DesktopClient.exe.config
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\DesktopClient.exe
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\DesktopClient.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\INIFileParser.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\M2Mqtt.Net.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\Newtonsoft.Json.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\TasksCoreNetFramework.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\ZenCommonNetFramework.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\ZenIAppModuleNetFramework.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\INIFileParser.xml
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\M2Mqtt.Net.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\TasksCoreNetFramework.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\ZenCommonNetFramework.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Release\ZenIAppModuleNetFramework.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\obj\Release\DesktopClient.csprojResolveAssemblyReference.cache
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\obj\Release\DesktopClient.exe
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\obj\Release\DesktopClient.pdb

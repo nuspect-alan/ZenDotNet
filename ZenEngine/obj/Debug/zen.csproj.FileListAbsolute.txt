@@ -1,0 +1,17 @@
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\zen.exe.config
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\zen.exe
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\zen.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\INIFileParser.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\Ionic.Zip.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\M2Mqtt.Net.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\Newtonsoft.Json.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\SharpAESCrypt.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\TasksCoreNetFramework.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\ZenCommonNetFramework.dll
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\INIFileParser.xml
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\M2Mqtt.Net.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\TasksCoreNetFramework.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\bin\Debug\ZenCommonNetFramework.pdb
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\obj\Debug\zen.csprojResolveAssemblyReference.cache
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\obj\Debug\zen.exe
+C:\Zenodys\ZenCoreNetFramework\Boards\DesktopClient\obj\Debug\zen.pdb

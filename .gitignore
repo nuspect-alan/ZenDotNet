@@ -73,3 +73,6 @@
 /Elements/NetCore/ZenSqlServer/obj
 /Elements/NetFramework/ZenSqlServer/bin
 /Elements/NetFramework/ZenSqlServer/obj
+/ZenEngine/.vs
+/ZenEngine/bin
+/ZenEngine/ZenCoreNetFramework.v11.suo
