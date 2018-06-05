@@ -6,7 +6,7 @@ This repository contains .NET Framework Computing Engine implementation and Elem
 # Credits & Licence
 
 Code is distributed under GPL3.0 Licence (see LICENCE.md)
-Elements and/or Computing Engine includes following librairies :
+Elements and/or Computing Engine includes following libraries :
 - ExcelDataReader, https://github.com/ExcelDataReader/ExcelDataReader
 - HtmlAgilityPack, https://github.com/zzzprojects/html-agility-pack
 - INIFileParser, https://github.com/rickyah/ini-parser
