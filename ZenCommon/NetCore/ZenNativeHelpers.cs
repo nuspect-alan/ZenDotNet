@@ -27,6 +27,9 @@ namespace ZenCommon
         static IGadgeteerBoard _elementBoard;
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        public delegate void AddEventToBuffer(IntPtr pElement, string data);
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate IntPtr GetElementProperty(IntPtr pElement, string key);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
@@ -41,11 +44,17 @@ namespace ZenCommon
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         unsafe public delegate void ExecuteElement(IntPtr pElement);
 
+        static AddEventToBuffer _addEventToBufferCallback;
         static GetElementProperty _getElementPropertyCallback;
         static SetElementProperty _setElementPropertyCallback;
         static GetElementResultInfo _getElementResultInfoCallback;
         static GetElementResult _getElementResultCallback;
         static ExecuteElement _executeElementCallback;
+
+        public static void AddEventToBufferCallback(Element element, string data)
+        {
+            _addEventToBufferCallback(element.Ptr, data);
+        }
 
         public static void SetElementPropertyCallback(IntPtr pElement, string key, string value)
         {
@@ -72,7 +81,7 @@ namespace ZenCommon
             _executeElementCallback(pElement);
         }
 
-        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, GetElementProperty getElementPropertyCallback, GetElementResultInfo getElementResultInfoCallback, GetElementResult getElementResultCallback, ExecuteElement executeElementCallback, SetElementProperty setElementPropertyCallback)
+        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, GetElementProperty getElementPropertyCallback, GetElementResultInfo getElementResultInfoCallback, GetElementResult getElementResultCallback, ExecuteElement executeElementCallback, SetElementProperty setElementPropertyCallback, AddEventToBuffer addEventToBufferCallback)
         {
             if (_elements == null)
             {
@@ -89,6 +98,7 @@ namespace ZenCommon
                 _getElementResultCallback = getElementResultCallback;
                 _executeElementCallback = executeElementCallback;
                 _setElementPropertyCallback = setElementPropertyCallback;
+                _addEventToBufferCallback = addEventToBufferCallback; 
             }
 
             (_elements[currentElementId] as IElement).IsManagedElement = true;
@@ -104,7 +114,7 @@ namespace ZenCommon
             //get the bytes of the unmanaged string
             byte[] bytes = new byte[s.Length + 1];
             Marshal.Copy(ptr, bytes, 0, s.Length);
-            //copy these bytes into myString
+            //copy these bytes into output
             Marshal.Copy(bytes, 0, output, bytes.Length);
             //free the unmanaged memory
             Marshal.FreeHGlobal(ptr);
