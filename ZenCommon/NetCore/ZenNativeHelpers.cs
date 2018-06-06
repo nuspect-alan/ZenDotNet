@@ -72,9 +72,9 @@ namespace ZenCommon
         static GetElementResult _getElementResultCallback;
         static ExecuteElement _executeElementCallback;
 
-        public static void AddEventToBufferCallback(Element element, string data)
+        public static void AddEventToBufferCallback(IntPtr pElement, string data)
         {
-            _addEventToBufferCallback(element.Ptr, data);
+            _addEventToBufferCallback(pElement, data);
         }
 
         public static void SetElementPropertyCallback(IntPtr pElement, string key, string value)
@@ -119,7 +119,7 @@ namespace ZenCommon
                 _getElementResultCallback = getElementResultCallback;
                 _executeElementCallback = executeElementCallback;
                 _setElementPropertyCallback = setElementPropertyCallback;
-                _addEventToBufferCallback = addEventToBufferCallback; 
+                _addEventToBufferCallback = addEventToBufferCallback;
             }
 
             (_elements[currentElementId] as IElement).IsManagedElement = true;
