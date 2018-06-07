@@ -43,7 +43,7 @@ namespace ZenCommon
         bool DoDebug { get; set; }
         ArrayList DisconnectedElements { get; set; }
         DateTime Started { get; set; }
-        bool IsManagedElement { get; set; }
+        bool IsManaged { get; set; }
         string ResultUnit { get; set; }
         string ResultSource { get; set; }
         #endregion

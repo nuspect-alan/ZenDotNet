@@ -46,18 +46,14 @@ namespace ZenCommon
         int _resultType = -1;
         #endregion
 
-        #region _ptrResult
-        unsafe void** _ptrResult;
+        #region PtrResultInstance
         unsafe void** PtrResultInstance
         {
             get
             {
                 // Obtain pointer to element result. Warning - element result pointer must already be initialized in this step.
                 // Unmanaged code is responsible to allocate pointer before this function call
-                if (_ptrResult == null)
-                    _ptrResult = ZenNativeHelpers.GetElementResultCallback(this.Ptr);
-
-                return _ptrResult;
+                return ZenNativeHelpers.GetElementResultCallback(this.Ptr);
             }
         }
         #endregion
@@ -77,7 +73,7 @@ namespace ZenCommon
         public bool DoDebug { get; set; }
         public ArrayList DisconnectedElements { get; set; }
         public DateTime Started { get; set; }
-        public bool IsManagedElement { get; set; }
+        public bool IsManaged { get; set; }
         public string ResultSource { get; set; }
         public string ResultUnit { get; set; }
 
@@ -85,7 +81,7 @@ namespace ZenCommon
         {
             get
             {
-                if (!this.IsManagedElement)
+                if (!this.IsManaged)
                 {
                     if (_resultType < 0)
                         _resultType = ZenNativeHelpers.GetElementResultInfoCallback(this.Ptr);
@@ -93,7 +89,10 @@ namespace ZenCommon
                     switch (_resultType)
                     {
                         case (int)ZenNativeHelpers.ElementResultType.RESULT_TYPE_INT:
-                            return *((int*)PtrResultInstance[0]);
+                            return *((int*)(*PtrResultInstance));
+
+                        case (int)ZenNativeHelpers.ElementResultType.RESULT_TYPE_CHAR_ARRAY:
+                            return Marshal.PtrToStringAnsi((IntPtr)(*PtrResultInstance));
 
                         default:
                             break;
@@ -105,12 +104,12 @@ namespace ZenCommon
             }
             set
             {
-                if (!this.IsManagedElement)
+                if (!this.IsManaged)
                 {
                     switch (value.GetType().Name)
                     {
                         case "Int32":
-                            *((int*)PtrResultInstance[0]) = (int)value;
+                            *((int*)(*PtrResultInstance)) = (int)value;
                             break;
 
                         default:
