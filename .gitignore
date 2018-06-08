@@ -81,3 +81,9 @@
 /Elements/NetFramework/ZenLicenceChecker/bin
 /Elements/NetCore/ZenLicenceChecker/obj
 /Elements/NetFramework/ZenLicenceChecker/obj
+/Elements/NetCore/ZenHttpRequest/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenHttpRequest/obj
+/Elements/NetFramework/ZenHttpPostRequest/bin
+/Elements/NetFramework/ZenHttpPostRequest/obj
+/Elements/NetFramework/ZenHttpRequest/bin
+/Elements/NetFramework/ZenHttpRequest/obj

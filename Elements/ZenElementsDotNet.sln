@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenSqlServer", "NetFramewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenLicenceChecker", "NetFramework\ZenLicenceChecker\ZenLicenceChecker.csproj", "{62D0E1E5-CD8E-40D2-89BD-F1268B930ABC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenHttpRequest", "NetFramework\ZenHttpRequest\ZenHttpRequest.csproj", "{EFFD25E0-BFF7-4E57-A5FA-6D008F70765F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{62D0E1E5-CD8E-40D2-89BD-F1268B930ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62D0E1E5-CD8E-40D2-89BD-F1268B930ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62D0E1E5-CD8E-40D2-89BD-F1268B930ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFFD25E0-BFF7-4E57-A5FA-6D008F70765F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFFD25E0-BFF7-4E57-A5FA-6D008F70765F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFFD25E0-BFF7-4E57-A5FA-6D008F70765F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFFD25E0-BFF7-4E57-A5FA-6D008F70765F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
