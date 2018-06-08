@@ -77,3 +77,7 @@
 /ZenEngine/bin
 /ZenEngine/ZenCoreNetFramework.v11.suo
 /ZenEngine/obj
+/Elements/NetCore/ZenLicenceChecker/bin/Debug/netcoreapp2.0
+/Elements/NetFramework/ZenLicenceChecker/bin
+/Elements/NetCore/ZenLicenceChecker/obj
+/Elements/NetFramework/ZenLicenceChecker/obj

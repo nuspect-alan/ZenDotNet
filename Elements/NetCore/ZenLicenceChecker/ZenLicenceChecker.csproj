@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\ZenLicenceChecker\ZenLicenceChecker.cs" Link="ZenLicenceChecker.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\libs\Common.Logging\Common.Logging.Core.3.4.1\lib\netstandard1.0\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.ABI">
+      <HintPath>..\..\..\libs\Nethereum.ABI\Nethereum.ABI.2.4.0\lib\netstandard1.1\Nethereum.ABI.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.Accounts">
+      <HintPath>..\..\..\libs\Nethereum.Accounts\Nethereum.Accounts.2.4.0\lib\netstandard1.1\Nethereum.Accounts.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.Contracts">
+      <HintPath>..\..\..\libs\Nethereum.Contracts\Nethereum.Contracts.2.4.0\lib\netstandard1.1\Nethereum.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.Hex">
+      <HintPath>..\..\..\libs\Nethereum.Hex\Nethereum.Hex.2.4.0\lib\netstandard1.1\Nethereum.Hex.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.JsonRpc.Client">
+      <HintPath>..\..\..\libs\Nethereum.JsonRpc.Client\Nethereum.JsonRpc.Client.2.4.0\lib\netstandard1.1\Nethereum.JsonRpc.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.JsonRpc.RpcClient">
+      <HintPath>..\..\..\libs\Nethereum.JsonRpc.RpcClient\Nethereum.JsonRpc.RpcClient.2.4.0\lib\netstandard1.1\Nethereum.JsonRpc.RpcClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.RPC">
+      <HintPath>..\..\..\libs\Nethereum.RPC\Nethereum.RPC.2.4.0\lib\netstandard1.1\Nethereum.RPC.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.Signer">
+      <HintPath>..\..\..\libs\Nethereum.Signer\Nethereum.Signer.2.4.0\lib\netstandard1.1\Nethereum.Signer.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.Util">
+      <HintPath>..\..\..\libs\Nethereum.Util\Nethereum.Util.2.4.0\lib\netstandard1.1\Nethereum.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethereum.Web3">
+      <HintPath>..\..\..\libs\Nethereum.Web3\Nethereum.Web3.2.4.0\lib\netstandard1.1\Nethereum.Web3.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\libs\Newtonsoft.Json\10.0.0.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCommon">
+      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="ZenCsScriptCore">
+      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
