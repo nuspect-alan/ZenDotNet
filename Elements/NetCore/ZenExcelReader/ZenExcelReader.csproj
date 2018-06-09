@@ -8,6 +8,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Common\ZenExcelReader\ZenExcelReader.cs" Link="ZenExcelReader.cs" />
   </ItemGroup>

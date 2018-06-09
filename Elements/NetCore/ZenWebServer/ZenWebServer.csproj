@@ -9,6 +9,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Common\ZenWebServer\UserMapper.cs" Link="UserMapper.cs" />
     <Compile Include="..\..\Common\ZenWebServer\ZenBootstrapper.cs" Link="ZenBootstrapper.cs" />

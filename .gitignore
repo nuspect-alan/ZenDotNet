@@ -94,3 +94,12 @@
 /Elements/NetCore/ZenMail/obj
 /Elements/NetFramework/ZenMail/bin
 /Elements/NetFramework/ZenMail/obj
+/Elements/NetCore/ZenAssetReceiver/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenAssetTransmitter/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenElementActionCaller/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenExcelReader/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenHttpRequest/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenLicenceChecker/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenMail/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenSqlServer/bin/Release/netcoreapp2.0
+/Elements/NetCore/ZenWebServer/bin/Release/netcoreapp2.0

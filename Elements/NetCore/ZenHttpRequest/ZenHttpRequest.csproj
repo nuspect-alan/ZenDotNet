@@ -8,6 +8,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Common\ZenHttpRequest\HttpRequestData.cs" Link="HttpRequestData.cs" />
     <Compile Include="..\..\Common\ZenHttpRequest\ZenHttpRequest.cs" Link="ZenHttpRequest.cs" />
