@@ -88,3 +88,9 @@
 /Elements/NetFramework/ZenHttpRequest/bin
 /Elements/NetFramework/ZenHttpRequest/obj
 /.vs/ZenDotNetCoreComplete/v15
+/.vs/ZenDotNetCoreComplete/DesignTimeBuild
+/Elements/NetCore/ZenMail/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenMail/obj/Debug/netcoreapp2.0
+/Elements/NetCore/ZenMail/obj
+/Elements/NetFramework/ZenMail/bin
+/Elements/NetFramework/ZenMail/obj
