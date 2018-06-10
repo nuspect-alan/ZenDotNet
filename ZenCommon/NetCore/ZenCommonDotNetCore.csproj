@@ -4,10 +4,17 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>ZenCommon</AssemblyName>
     <RootNamespace>ZenCommon</RootNamespace>
+    <Configurations>Debug;Release;Develop</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath></OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|AnyCPU'">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(ZENO_PROJ)\Implementations\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -21,5 +28,4 @@
     <PackageReference Include="Microsoft.NETCore.Runtime.CoreCLR" Version="1.1.2" />
     <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
   </ItemGroup>
-
 </Project>
