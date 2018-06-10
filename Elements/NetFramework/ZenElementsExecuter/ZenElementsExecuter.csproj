@@ -62,7 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenElementsExecuter\ZenElementsExecuter.cs">
+    <Compile Include="..\..\NetCore\ZenElementsExecuter\ZenElementsExecuter.cs">
       <Link>ZenElementsExecuter.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -20,10 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenAssetReceiver\ZenAssetReceiver.cs" Link="ZenAssetReceiver.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Nethereum.ABI">
       <HintPath>..\..\..\libs\Nethereum.ABI\Nethereum.ABI.2.4.0\lib\netstandard1.1\Nethereum.ABI.dll</HintPath>
     </Reference>

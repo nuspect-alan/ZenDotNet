@@ -82,7 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenAssetTransmitter\ZenAssetTransmitter.cs">
+    <Compile Include="..\..\NetCore\ZenAssetTransmitter\ZenAssetTransmitter.cs">
       <Link>ZenAssetTransmitter.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

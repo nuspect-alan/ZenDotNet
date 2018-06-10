@@ -88,16 +88,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenWebServer\UserMapper.cs">
+    <Compile Include="..\..\NetCore\ZenWebServer\UserMapper.cs">
       <Link>UserMapper.cs</Link>
     </Compile>
-    <Compile Include="..\..\Common\ZenWebServer\ZenBootstrapper.cs">
+    <Compile Include="..\..\NetCore\ZenWebServer\ZenBootstrapper.cs">
       <Link>ZenBootstrapper.cs</Link>
     </Compile>
-    <Compile Include="..\..\Common\ZenWebServer\ZenLoginModule.cs">
+    <Compile Include="..\..\NetCore\ZenWebServer\ZenLoginModule.cs">
       <Link>ZenLoginModule.cs</Link>
     </Compile>
-    <Compile Include="..\..\Common\ZenWebServer\ZenWebServer.cs">
+    <Compile Include="..\..\NetCore\ZenWebServer\ZenWebServer.cs">
       <Link>ZenWebServer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

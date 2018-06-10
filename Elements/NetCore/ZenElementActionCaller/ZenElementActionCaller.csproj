@@ -20,10 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenElementActionCaller\ZenElementActionCaller.cs" Link="ZenElementActionCaller.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\..\libs\HtmlAgilityPack\1.6.2\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
     </Reference>

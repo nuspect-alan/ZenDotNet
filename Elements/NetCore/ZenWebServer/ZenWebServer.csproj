@@ -21,13 +21,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenWebServer\UserMapper.cs" Link="UserMapper.cs" />
-    <Compile Include="..\..\Common\ZenWebServer\ZenBootstrapper.cs" Link="ZenBootstrapper.cs" />
-    <Compile Include="..\..\Common\ZenWebServer\ZenLoginModule.cs" Link="ZenLoginModule.cs" />
-    <Compile Include="..\..\Common\ZenWebServer\ZenWebServer.cs" Link="ZenWebServer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Microsoft.CodeAnalysis">
       <HintPath>..\..\..\libs\CoreClrMicrosoft\Microsoft.CodeAnalysis.dll</HintPath>
     </Reference>

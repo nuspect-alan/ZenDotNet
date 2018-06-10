@@ -59,13 +59,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenCsScriptCore\IZenCsScript.cs">
+    <Compile Include="..\..\NetCore\ZenCsScriptCore\IZenCsScript.cs">
       <Link>IZenCsScript.cs</Link>
     </Compile>
-    <Compile Include="..\..\Common\ZenCsScriptCore\ZenCsScriptCore.cs">
+    <Compile Include="..\..\NetCore\ZenCsScriptCore\ZenCsScriptCore.cs">
       <Link>ZenCsScriptCore.cs</Link>
     </Compile>
-    <Compile Include="..\..\Common\ZenCsScriptCore\ZenCsScriptData.cs">
+    <Compile Include="..\..\NetCore\ZenCsScriptCore\ZenCsScriptData.cs">
       <Link>ZenCsScriptData.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

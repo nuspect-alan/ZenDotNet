@@ -96,7 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenLicenceChecker\ZenLicenceChecker.cs">
+    <Compile Include="..\..\NetCore\ZenLicenceChecker\ZenLicenceChecker.cs">
       <Link>ZenLicenceChecker.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

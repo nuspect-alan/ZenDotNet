@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenCsScript\ZenCsScript.cs">
+    <Compile Include="..\..\NetCore\ZenCsScript\ZenCsScript.cs">
       <Link>ZenCsScript.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

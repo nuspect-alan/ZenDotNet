@@ -58,7 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenElementActionCaller\ZenElementActionCaller.cs">
+    <Compile Include="..\..\NetCore\ZenElementActionCaller\ZenElementActionCaller.cs">
       <Link>ZenElementActionCaller.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

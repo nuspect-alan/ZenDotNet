@@ -58,7 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenExcelReader\ZenExcelReader.cs">
+    <Compile Include="..\..\NetCore\ZenExcelReader\ZenExcelReader.cs">
       <Link>ZenExcelReader.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -64,10 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenHttpRequest\HttpRequestData.cs">
+    <Compile Include="..\..\NetCore\ZenHttpRequest\HttpRequestData.cs">
       <Link>HttpRequestData.cs</Link>
     </Compile>
-    <Compile Include="..\..\Common\ZenHttpRequest\ZenHttpRequest.cs">
+    <Compile Include="..\..\NetCore\ZenHttpRequest\ZenHttpRequest.cs">
       <Link>ZenHttpRequest.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

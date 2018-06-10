@@ -20,10 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenExcelReader\ZenExcelReader.cs" Link="ZenExcelReader.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="ExcelDataReader">
       <HintPath>..\..\..\libs\ExcelDataReader\ExcelDataReader.3.4.0\lib\netstandard2.0\ExcelDataReader.dll</HintPath>
     </Reference>

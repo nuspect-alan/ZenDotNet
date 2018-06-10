@@ -20,10 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Common\ZenLicenceChecker\ZenLicenceChecker.cs" Link="ZenLicenceChecker.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Common.Logging.Core">
       <HintPath>..\..\..\libs\Common.Logging\Common.Logging.Core.3.4.1\lib\netstandard1.0\Common.Logging.Core.dll</HintPath>
     </Reference>
