@@ -53,8 +53,8 @@ namespace ZenElementActionCaller
         #endregion
 
         #region Core implementations
-        #region InitManagedElements
-        unsafe public static void InitManagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.AddEventToBuffer addEventToBuffer)
+        #region InitUnmanagedElements
+        unsafe public static void InitUnmanagedElements(string currentElementId, void** elements, int elementsCount, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.AddEventToBuffer addEventToBuffer)
         {
             if (!_implementations.ContainsKey(currentElementId))
                 _implementations.Add(currentElementId, new ZenElementActionCaller());
