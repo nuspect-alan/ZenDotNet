@@ -240,7 +240,8 @@ namespace ZenWebServer
             string uri = element.GetElementProperty("BASE_URI").Trim().EndsWith("/") ? element.GetElementProperty("BASE_URI").Trim() : string.Concat(element.GetElementProperty("BASE_URI").Trim(), "/");
             try
             {
-                using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element), hostConfigs))
+                //using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element), hostConfigs))
+                using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element)))
                 {
                     nancyHost.Start();
 #if !NETCOREAPP2_0

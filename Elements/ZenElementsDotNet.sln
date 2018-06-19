@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenHttpRequest", "NetFramew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenMail", "NetFramework\ZenMail\ZenMail.csproj", "{92C48124-D0EC-4F83-888D-3C86A6EF1101}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenMySql", "NetFramework\ZenMySql\ZenMySql.csproj", "{E9BA2799-6E92-4D3E-AB90-BA912A9E5EAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{92C48124-D0EC-4F83-888D-3C86A6EF1101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92C48124-D0EC-4F83-888D-3C86A6EF1101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92C48124-D0EC-4F83-888D-3C86A6EF1101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9BA2799-6E92-4D3E-AB90-BA912A9E5EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9BA2799-6E92-4D3E-AB90-BA912A9E5EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9BA2799-6E92-4D3E-AB90-BA912A9E5EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9BA2799-6E92-4D3E-AB90-BA912A9E5EAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

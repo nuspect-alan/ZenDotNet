@@ -104,3 +104,7 @@
 /Elements/NetCore/ZenSqlServer/bin/Release/netcoreapp2.0
 /Elements/NetCore/ZenWebServer/bin/Release/netcoreapp2.0
 /.vs/config
+/Elements/NetCore/ZenMySql/bin/Debug/netcoreapp2.0
+/Elements/NetCore/ZenMySql/obj
+/Elements/NetFramework/ZenMySql/bin
+/Elements/NetFramework/ZenMySql/obj
