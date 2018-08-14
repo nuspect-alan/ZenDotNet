@@ -108,3 +108,13 @@
 /Elements/NetCore/ZenMySql/obj
 /Elements/NetFramework/ZenMySql/bin
 /Elements/NetFramework/ZenMySql/obj
+/Elements/NetCore/ZenAssetReceiver/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenAssetTransmitter/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenElementActionCaller/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenExcelReader/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenHttpRequest/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenLicenceChecker/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenMail/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenMySql/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenSqlServer/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenWebServer/bin/Debug/netcoreapp2.1
