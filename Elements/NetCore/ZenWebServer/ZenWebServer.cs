@@ -323,12 +323,9 @@ namespace ZenWebServer
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Routing")).Location));
 
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
-            string rawModuleCode = System.IO.File.ReadAllText(@"C:\Users\Tomaž\Desktop\test\test\Controllers\Class1.cs"); //string.Concat(element.GetElementProperty("NANCY_MODULE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
-            string rawAuthenticationCode = string.Concat(element.GetElementProperty("AUTHENTICATION_CODE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
-
+            string rawModuleCode = string.Concat(element.GetElementProperty("NANCY_MODULE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
             string code = string.Empty;
             string usings = GetUsings(rawModuleCode, ref code);
-            usings += GetUsings(rawAuthenticationCode, ref code, "public class ZenAuthentication{", "}");
 
             var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
             options = options.WithOptimizationLevel(OptimizationLevel.Release);
