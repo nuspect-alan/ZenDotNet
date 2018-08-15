@@ -20,13 +20,17 @@
  **************************************************************************/
 
 #if NETCOREAPP2_0
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.CodeAnalysis;
 using System.Runtime.Loader;
 using Microsoft.CodeAnalysis.Emit;
 using Microsoft.CodeAnalysis.CSharp;
 #else
+using Nancy.Hosting.Self;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Nancy;
+using Nancy.Bootstrapper;
 #endif
 using ZenCommon;
 using Microsoft.CSharp;
@@ -34,15 +38,16 @@ using System.CodeDom.Compiler;
 using System;
 using System.Collections;
 using System.IO;
-using Nancy.Hosting.Self;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Collections.Generic;
-using Nancy;
-using Nancy.Bootstrapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace ZenWebServer
 {
@@ -100,24 +105,29 @@ namespace ZenWebServer
 
         #region Core implementations
         #region GetDynamicElements
-        unsafe public static string GetDynamicElements(string currentElementId, void** elements, int elementsCount, int isManaged, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.AddEventToBuffer addEventToBuffer)
+        unsafe public static string GetDynamicElements(string currentElementId, void** elements, int elementsCount, int isManaged, string projectRoot, string projectId, ZenNativeHelpers.GetElementProperty getElementPropertyCallback, ZenNativeHelpers.GetElementResultInfo getElementResultInfoCallback, ZenNativeHelpers.GetElementResult getElementResultCallback, ZenNativeHelpers.ExecuteElement executeElementCallback, ZenNativeHelpers.SetElementProperty setElementProperty, ZenNativeHelpers.AddEventToBuffer addEventToBuffer)
         {
             List<string> tmpElements = new List<string>();
             string pluginsToExecute = string.Empty;
+            string confFile = string.Concat("ZenSystemContent", Path.DirectorySeparatorChar, "zeno-edge-conf.json");
 
-            // ZenNativeHelpers.InitManagedNodes(currentNodeId, nodes, nodesCount, projectRoot, projectId, getNodePropertyCallback, getNodeResultInfoCallback, getnodeResultCallback);
-            /*JObject json = JsonConvert.DeserializeObject(File.ReadAllText(string.Concat("ZenSystemContent", Path.DirectorySeparatorChar, "zeno-edge-conf.json"))) as JObject;
-            foreach (var elements in json["widgets"])
+            if (!File.Exists(confFile))
             {
-                foreach (var element in elements["elements"])
+                Console.WriteLine(string.Format("WARNING: File {0} does not exists....", confFile));
+                return string.Empty;
+            }
+            JObject json = JsonConvert.DeserializeObject(File.ReadAllText(string.Concat("ZenSystemContent", Path.DirectorySeparatorChar, "zeno-edge-conf.json"))) as JObject;
+            foreach (var e in json["widgets"])
+            {
+                foreach (var element in e["elements"])
                 {
-                    if (!tmpNodes.Contains(element["elementName"].ToString().Trim()) && ZenNativeHelpers.Nodes.ContainsKey(element["elementName"].ToString().Trim()))
-                        tmpNodes.Add(element["elementName"].ToString().Trim());
+                    if (!tmpElements.Contains(element["elementName"].ToString().Trim()) && ZenNativeHelpers.Elements.ContainsKey(element["elementName"].ToString().Trim()))
+                        tmpElements.Add(element["elementName"].ToString().Trim());
 
                     foreach (string dependency in element["nodeDependency"].ToString().Split('$'))
                     {
-                        if (ZenNativeHelpers.Nodes.ContainsKey(dependency.Trim()) && !tmpNodes.Contains(dependency.Trim()))
-                            tmpNodes.Add(dependency.Trim());
+                        if (ZenNativeHelpers.Elements.ContainsKey(dependency.Trim()) && !tmpElements.Contains(dependency.Trim()))
+                            tmpElements.Add(dependency.Trim());
                     }
 
                     if (element["triggers"] != null)
@@ -125,15 +135,15 @@ namespace ZenWebServer
                         foreach (var trigger in element["triggers"])
                         {
 
-                            if (ZenNativeHelpers.Nodes.ContainsKey(trigger["action"].ToString().Trim()) && !tmpNodes.Contains(trigger["action"].ToString().Trim()))
-                                tmpNodes.Add(trigger["action"].ToString().Trim());
+                            if (ZenNativeHelpers.Elements.ContainsKey(trigger["action"].ToString().Trim()) && !tmpElements.Contains(trigger["action"].ToString().Trim()))
+                                tmpElements.Add(trigger["action"].ToString().Trim());
 
-                            if (ZenNativeHelpers.Nodes.ContainsKey(trigger["flag"].ToString().Trim()) && !tmpNodes.Contains(trigger["flag"].ToString().Trim()))
-                                tmpNodes.Add(trigger["flag"].ToString().Trim());
+                            if (ZenNativeHelpers.Elements.ContainsKey(trigger["flag"].ToString().Trim()) && !tmpElements.Contains(trigger["flag"].ToString().Trim()))
+                                tmpElements.Add(trigger["flag"].ToString().Trim());
                         }
                     }
                 }
-            }*/
+            }
             return pluginsToExecute;
         }
         #endregion
@@ -156,7 +166,6 @@ namespace ZenWebServer
         #region IZenExecutor Implementations
         public List<string> GetElementsToExecute(IElement plugin, Hashtable elements)
         {
-
             List<string> pluginsToExecute = new List<string>();
             JObject json = JsonConvert.DeserializeObject(File.ReadAllText(string.Concat("ZenSystemContent", Path.DirectorySeparatorChar, "zeno-edge-conf.json"))) as JObject;
             foreach (var widgetElements in json["widgets"])
@@ -232,24 +241,49 @@ namespace ZenWebServer
 #endif
 
         #region Functions
+#if NETCOREAPP2_0
+        #region CreateWebHostBuilder
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args, IElement element, string uri) =>
+           WebHost.CreateDefaultBuilder(args)
+                .UseUrls(uri)
+                .UseContentRoot(ZenNativeHelpers.ParentBoard.TemplateRootDirectory)
+                .ConfigureServices(servicesCollection =>
+                {
+                    servicesCollection.AddSingleton<ZenoConfigContainer>(new ZenoConfigContainer()
+                    {
+                        element = element,
+                        env = ZenNativeHelpers.ParentBoard
+                    });
+                })
+               .UseStartup<Startup>();
+        #endregion
+#endif
+
         #region Startserver
-        void StartServer(IElement element)
+        public void StartServer(IElement element)
         {
+            try
+            {
+#if NETCOREAPP2_0
+                string uri = element.GetElementProperty("BASE_URI").Trim().EndsWith("/") ? element.GetElementProperty("BASE_URI").Trim() : string.Concat(element.GetElementProperty("BASE_URI").Trim(), "/");
+                CreateWebHostBuilder(new string[] { }, element, uri).Build().Run();
+
+#else
             HostConfiguration hostConfigs = new HostConfiguration();
             hostConfigs.UrlReservations.CreateAutomatically = true;
             string uri = element.GetElementProperty("BASE_URI").Trim().EndsWith("/") ? element.GetElementProperty("BASE_URI").Trim() : string.Concat(element.GetElementProperty("BASE_URI").Trim(), "/");
-            try
-            {
+            
                 //using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element), hostConfigs))
                 using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element)))
                 {
                     nancyHost.Start();
-#if !NETCOREAPP2_0
+
                     ParentBoard.PublishInfoPrint(element.ID, "Server started at " + uri, "info");
-#endif
+
                     Console.WriteLine("Server started at " + uri);
                     Thread.Sleep(Timeout.Infinite);
                 }
+#endif
             }
             catch (Exception ex)
             {
@@ -265,7 +299,11 @@ namespace ZenWebServer
         public static Assembly assembly;
         void GenerateControllerCode(IElement element, Hashtable elements)
         {
-            /*List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
+            string filename = Path.Combine("tmp", "WebServerController_" + element.ID + ".zen");
+            if (File.Exists(filename))
+                return;
+
+            List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System")).Location));
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime")).Location));
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Console")).Location));
@@ -275,10 +313,17 @@ namespace ZenWebServer
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime.Extensions")).Location));
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.CSharp")).Location));
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Threading.Tasks")).Location));
-            
-                
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.ViewFeatures")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.Core")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("netstandard")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.Abstractions")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("ZenCommon")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Newtonsoft.Json")).Location));
+            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Routing")).Location));
+
             coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
-            string rawModuleCode = string.Concat(element.GetElementProperty("NANCY_MODULE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
+            string rawModuleCode = System.IO.File.ReadAllText(@"C:\Users\Tomaž\Desktop\test\test\Controllers\Class1.cs"); //string.Concat(element.GetElementProperty("NANCY_MODULE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
             string rawAuthenticationCode = string.Concat(element.GetElementProperty("AUTHENTICATION_CODE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
 
             string code = string.Empty;
@@ -312,9 +357,12 @@ namespace ZenWebServer
                     assembly = AssemblyLoadContext.Default.LoadFromStream(ms);
                     assembly.GetType("ZenSystem").GetField("_element").SetValue(this, element);
                     assembly.GetType("ZenSystem").GetField("_plugins").SetValue(this, elements);
-                    UserMapper._compiledAssembly = assembly;
+                    if (!Directory.Exists(filename))
+                        Directory.CreateDirectory(Path.GetDirectoryName(filename));
+
+                    compilation.Emit(filename);
                 }
-            }*/
+            }
         }
 #else
         void GenerateControllerCode(IElement element, Hashtable elements)

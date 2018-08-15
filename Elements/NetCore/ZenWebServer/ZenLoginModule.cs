@@ -18,7 +18,7 @@
  *    Tomaž Vinko
  *   
  **************************************************************************/
-
+#if !NETCOREAPP2_0
 using System;
 using System.Dynamic;
 using Nancy.Authentication.Forms;
@@ -66,3 +66,4 @@ public class ZenLoginModule : NancyModule
         #endregion
     }
 }
+#endif

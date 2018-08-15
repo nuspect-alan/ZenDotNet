@@ -19,13 +19,7 @@
  *   
  **************************************************************************/
 
-#if NETCOREAPP2_0
-using Microsoft.Extensions.DependencyModel;
-using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-#endif
+#if !NETCOREAPP2_0
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
@@ -96,25 +90,8 @@ public class ZenBootstrapper : DefaultNancyBootstrapper
     }
     #endregion
 
-#if NETCOREAPP2_0
-   public  CultureInfo aa( NancyContext ctx, GlobalizationConfiguration g)
-    {
-        Console.WriteLine(CultureInfo.CurrentCulture.DisplayName);
-        return CultureInfo.CurrentCulture;
-    }
-#endif
     protected override void ConfigureConventions(NancyConventions nancyConventions)
      {
-#if NETCOREAPP2_0
-        List<Func<NancyContext, GlobalizationConfiguration, CultureInfo>> aa1 = new List<Func<NancyContext, GlobalizationConfiguration, CultureInfo>>
-        {
-            aa
-        };
-        DefaultCultureConventions a = new DefaultCultureConventions();
-        a.Initialise(nancyConventions);
-        nancyConventions.CultureConventions.Add(aa);
-        
-#endif
         nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("ZenSystemContent", @"ZenSystemContent"));
          base.ConfigureConventions(nancyConventions);
      }
@@ -141,89 +118,6 @@ public class ZenBootstrapper : DefaultNancyBootstrapper
     }
     #endregion
     #endregion
-
-#if NETCOREAPP2_0
-    private IAssemblyCatalog assemblyCatalog;
-    protected override IAssemblyCatalog AssemblyCatalog
-    {
-        get
-        {
-            
-            //Console.WriteLine("Assembly name : " + ZenWebServer.ZenWebServer.assembly.FullName);
-            return null;
-        }
-    }
-#endif
 }
 
-#if NETCOREAPP2_0
-/// <summary>
-/// Default implementation of the <see cref="IAssemblyCatalog"/> interface, based on
-/// retrieving <see cref="Assembly"/> information from <see cref="DependencyContext"/>.
-/// </summary>
-public class DependencyContextAssemblyCatalog : IAssemblyCatalog
-{
-    private static readonly Assembly NancyAssembly = typeof(INancyEngine).GetTypeInfo().Assembly;
-    private readonly DependencyContext dependencyContext;
-
-    
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DependencyContextAssemblyCatalog"/> class,
-    /// using <paramref name="entryAssembly"/>.
-    /// </summary>
-    public DependencyContextAssemblyCatalog(Assembly entryAssembly)
-    {
-        this.dependencyContext = DependencyContext.Load(entryAssembly);
-        Console.WriteLine("Now in get assemblies..." + (this.dependencyContext == null));
-    }
-
-    /// <summary>
-    /// Gets all <see cref="Assembly"/> instances in the catalog.
-    /// </summary>
-    /// <returns>An <see cref="IReadOnlyCollection{T}"/> of <see cref="Assembly"/> instances.</returns>
-    public IReadOnlyCollection<Assembly> GetAssemblies()
-    {
-        /*
-        var results = new HashSet<Assembly>
-            {
-                typeof (DependencyContextAssemblyCatalog).GetTypeInfo().Assembly
-                typeof((Nancy.Diagnostics.DefaultDiagnostics).GetTypeInfo().Assembly)
-            };
-            */
-       var results = new HashSet<Assembly>();
-        results.Add(typeof(DependencyContextAssemblyCatalog).GetTypeInfo().Assembly);
-        results.Add(typeof(Nancy.Diagnostics.DefaultDiagnostics).GetTypeInfo().Assembly);
-       
-         foreach (var library in this.dependencyContext.RuntimeLibraries)
-         {
-
-             if (IsReferencingNancy(library))
-             {
-                 foreach (var assemblyName in library.GetDefaultAssemblyNames(this.dependencyContext))
-                 {
-                     results.Add(SafeLoadAssembly(assemblyName));
-                 }
-             }
-         }
-        return results.ToArray();
-    }
-
-    private static Assembly SafeLoadAssembly(AssemblyName assemblyName)
-    {
-        try
-        {
-            return Assembly.Load(assemblyName);
-        }
-        catch (Exception)
-        {
-            return null;
-        }
-    }
-
-    private static bool IsReferencingNancy(Library library)
-    {
-        return library.Dependencies.Any(dependency => dependency.Name.Equals(NancyAssembly.GetName().Name));
-    }
-}
 #endif

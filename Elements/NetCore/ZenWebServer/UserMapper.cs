@@ -19,6 +19,7 @@
  *   
  **************************************************************************/
 
+#if !NETCOREAPP2_0
 using Nancy;
 using Nancy.Authentication.Forms;
 using System;
@@ -66,3 +67,4 @@ public class UserMapper : IUserMapper
     #endregion
     #endregion
 }
+#endif
