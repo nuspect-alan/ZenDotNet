@@ -118,3 +118,7 @@
 /Elements/NetCore/ZenMySql/bin/Debug/netcoreapp2.1
 /Elements/NetCore/ZenSqlServer/bin/Debug/netcoreapp2.1
 /Elements/NetCore/ZenWebServer/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenGwSystemInfo/bin/Debug/netcoreapp2.1
+/Elements/NetCore/ZenGwSystemInfo/obj
+/Elements/NetFramework/ZenGwSystemInfo/bin/Debug
+/Elements/NetFramework/ZenGwSystemInfo/obj
