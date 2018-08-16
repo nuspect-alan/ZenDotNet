@@ -25,6 +25,10 @@ using Microsoft.CodeAnalysis;
 using System.Runtime.Loader;
 using Microsoft.CodeAnalysis.Emit;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 #else
 using Nancy.Hosting.Self;
 using Newtonsoft.Json.Linq;
@@ -44,10 +48,6 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 namespace ZenWebServer
 {
@@ -144,6 +144,9 @@ namespace ZenWebServer
                     }
                 }
             }
+            foreach (string e in tmpElements)
+                pluginsToExecute += e + ",";
+
             return pluginsToExecute;
         }
         #endregion
@@ -172,7 +175,7 @@ namespace ZenWebServer
             {
                 foreach (var element in widgetElements["elements"])
                 {
-                    if (!pluginsToExecute.Contains(element["elementName"].ToString().Trim()) &&  elements.ContainsKey(element["elementName"].ToString().Trim()))
+                    if (!pluginsToExecute.Contains(element["elementName"].ToString().Trim()) && elements.ContainsKey(element["elementName"].ToString().Trim()))
                         pluginsToExecute.Add(element["elementName"].ToString().Trim());
 
                     if (element["nodeDependency"] != null)
@@ -246,7 +249,7 @@ namespace ZenWebServer
         public static IWebHostBuilder CreateWebHostBuilder(string[] args, IElement element, string uri) =>
            WebHost.CreateDefaultBuilder(args)
                 .UseUrls(uri)
-                .UseContentRoot(ZenNativeHelpers.ParentBoard.TemplateRootDirectory)
+                .UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), element.GetElementProperty("VIEWS_ROOT")))
                 .ConfigureServices(servicesCollection =>
                 {
                     servicesCollection.AddSingleton<ZenoConfigContainer>(new ZenoConfigContainer()
@@ -269,10 +272,10 @@ namespace ZenWebServer
                 CreateWebHostBuilder(new string[] { }, element, uri).Build().Run();
 
 #else
-            HostConfiguration hostConfigs = new HostConfiguration();
-            hostConfigs.UrlReservations.CreateAutomatically = true;
-            string uri = element.GetElementProperty("BASE_URI").Trim().EndsWith("/") ? element.GetElementProperty("BASE_URI").Trim() : string.Concat(element.GetElementProperty("BASE_URI").Trim(), "/");
-            
+                HostConfiguration hostConfigs = new HostConfiguration();
+                hostConfigs.UrlReservations.CreateAutomatically = true;
+                string uri = element.GetElementProperty("BASE_URI").Trim().EndsWith("/") ? element.GetElementProperty("BASE_URI").Trim() : string.Concat(element.GetElementProperty("BASE_URI").Trim(), "/");
+
                 //using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element), hostConfigs))
                 using (NancyHost nancyHost = new NancyHost(new Uri(uri), new ZenBootstrapper(element)))
                 {
