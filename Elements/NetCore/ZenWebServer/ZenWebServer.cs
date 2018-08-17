@@ -159,8 +159,10 @@ namespace ZenWebServer
 
             ZenNativeHelpers.InitUnmanagedElements(currentElementId, elements, elementsCount, isManaged, projectRoot, projectId, getElementPropertyCallback, getElementResultInfoCallback, getElementResultCallback, executeElementCallback, setElementProperty, addEventToBuffer);
 
-            _implementations[currentElementId].GenerateControllerCode(ZenNativeHelpers.Elements[currentElementId] as IElement, ZenNativeHelpers.Elements);
-            new Task(() => _implementations[currentElementId].StartServer(ZenNativeHelpers.Elements[currentElementId] as IElement)).Start();
+            Assembly controllers = _implementations[currentElementId].GenerateControllerCode(ZenNativeHelpers.Elements[currentElementId] as IElement, ZenNativeHelpers.Elements);
+            new Task(() => _implementations[currentElementId].StartServer(
+                            ZenNativeHelpers.Elements[currentElementId] as IElement,
+                            controllers)).Start();
         }
         #endregion
         #endregion
@@ -246,7 +248,11 @@ namespace ZenWebServer
         #region Functions
 #if NETCOREAPP2_0
         #region CreateWebHostBuilder
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args, IElement element, string uri) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args,
+                        IElement element,
+                        string uri,
+                        Assembly controllers) =>
+
            WebHost.CreateDefaultBuilder(args)
                 .UseUrls(uri)
                 .UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), element.GetElementProperty("VIEWS_ROOT")))
@@ -255,7 +261,8 @@ namespace ZenWebServer
                     servicesCollection.AddSingleton<ZenoConfigContainer>(new ZenoConfigContainer()
                     {
                         element = element,
-                        env = ZenNativeHelpers.ParentBoard
+                        env = ZenNativeHelpers.ParentBoard,
+                        controllers = controllers
                     });
                 })
                .UseStartup<Startup>();
@@ -263,13 +270,13 @@ namespace ZenWebServer
 #endif
 
         #region Startserver
-        public void StartServer(IElement element)
+        public void StartServer(IElement element, Assembly controllers)
         {
             try
             {
 #if NETCOREAPP2_0
                 string uri = element.GetElementProperty("BASE_URI").Trim().EndsWith("/") ? element.GetElementProperty("BASE_URI").Trim() : string.Concat(element.GetElementProperty("BASE_URI").Trim(), "/");
-                CreateWebHostBuilder(new string[] { }, element, uri).Build().Run();
+                CreateWebHostBuilder(new string[] { }, element, uri, controllers).Build().Run();
 
 #else
                 HostConfiguration hostConfigs = new HostConfiguration();
@@ -299,70 +306,73 @@ namespace ZenWebServer
 
         #region GenerateControllerCode
 #if NETCOREAPP2_0
-        public static Assembly assembly;
-        void GenerateControllerCode(IElement element, Hashtable elements)
+        Assembly GenerateControllerCode(IElement element, Hashtable elements)
         {
+            Assembly assembly = null;
             string filename = Path.Combine("tmp", "WebServerController_" + element.ID + ".zen");
-            if (File.Exists(filename))
-                return;
-
-            List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Console")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Core")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Data")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Xml.Linq")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime.Extensions")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.CSharp")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Threading.Tasks")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.ViewFeatures")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.Core")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("netstandard")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.Abstractions")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("ZenCommon")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Newtonsoft.Json")).Location));
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Routing")).Location));
-
-            coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
-            string rawModuleCode = string.Concat(element.GetElementProperty("NANCY_MODULE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
-            string code = string.Empty;
-            string usings = GetUsings(rawModuleCode, ref code);
-
-            var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-            options = options.WithOptimizationLevel(OptimizationLevel.Release);
-            options = options.WithPlatform(Platform.X64);
-            var tree = CSharpSyntaxTree.ParseText(string.Concat(usings, Environment.NewLine, code, Environment.NewLine, ZEN_CODE));
-            var compilation = CSharpCompilation.Create("zenCompile", syntaxTrees: new[] { tree }, references: coreReferencesPaths.ToArray(), options: options);
-
-            using (var ms = new MemoryStream())
+            if (!File.Exists(filename))
             {
-                EmitResult result = compilation.Emit(ms);
+                List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Console")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Core")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Data")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Xml.Linq")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime.Extensions")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.CSharp")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Threading.Tasks")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.ViewFeatures")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.Core")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("netstandard")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Mvc.Abstractions")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("ZenCommon")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Newtonsoft.Json")).Location));
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("Microsoft.AspNetCore.Routing")).Location));
 
-                if (!result.Success)
+                coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
+                string rawModuleCode = string.Concat(element.GetElementProperty("NANCY_MODULE").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#92;", "\\").Replace("&period;", ".").Replace("&apos;", "'").Replace("&comma;", ",").Replace("&amp;", "&"), Environment.NewLine);
+                string code = string.Empty;
+                string usings = GetUsings(rawModuleCode, ref code);
+
+                var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
+                options = options.WithOptimizationLevel(OptimizationLevel.Release);
+                options = options.WithPlatform(Platform.X64);
+                var tree = CSharpSyntaxTree.ParseText(string.Concat(usings, Environment.NewLine, code, Environment.NewLine, ZEN_CODE));
+                var compilation = CSharpCompilation.Create("zenCompile", syntaxTrees: new[] { tree }, references: coreReferencesPaths.ToArray(), options: options);
+
+                using (var ms = new MemoryStream())
                 {
-                    IEnumerable<Diagnostic> failures = result.Diagnostics.Where(diagnostic =>
-                         diagnostic.IsWarningAsError ||
-                         diagnostic.Severity == DiagnosticSeverity.Error);
-
-                    foreach (Diagnostic diagnostic in failures)
+                    EmitResult result = compilation.Emit(ms);
+                    if (!result.Success)
                     {
-                        Console.Error.WriteLine("\t{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
+                        IEnumerable<Diagnostic> failures = result.Diagnostics.Where(diagnostic =>
+                             diagnostic.IsWarningAsError ||
+                             diagnostic.Severity == DiagnosticSeverity.Error);
+
+                        foreach (Diagnostic diagnostic in failures)
+                        {
+                            Console.Error.WriteLine("\t{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
+                        }
+                    }
+                    else
+                    {
+                        ms.Seek(0, SeekOrigin.Begin);
+                        assembly = AssemblyLoadContext.Default.LoadFromStream(ms);
+                        if (!Directory.Exists(filename))
+                            Directory.CreateDirectory(Path.GetDirectoryName(filename));
+
+                        compilation.Emit(filename);
                     }
                 }
-                else
-                {
-                    ms.Seek(0, SeekOrigin.Begin);
-                    assembly = AssemblyLoadContext.Default.LoadFromStream(ms);
-                    assembly.GetType("ZenSystem").GetField("_element").SetValue(this, element);
-                    assembly.GetType("ZenSystem").GetField("_plugins").SetValue(this, elements);
-                    if (!Directory.Exists(filename))
-                        Directory.CreateDirectory(Path.GetDirectoryName(filename));
-
-                    compilation.Emit(filename);
-                }
             }
+            else
+                assembly = Assembly.LoadFile(Path.Combine(Directory.GetCurrentDirectory(), filename));
+
+            assembly.GetType("ZenSystem").GetField("_element").SetValue(this, element);
+            assembly.GetType("ZenSystem").GetField("_plugins").SetValue(this, elements);
+            return assembly;
         }
 #else
         void GenerateControllerCode(IElement element, Hashtable elements)

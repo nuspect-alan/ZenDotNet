@@ -21,6 +21,7 @@
 #if NETCOREAPP2_0
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using ZenCommon;
 
@@ -30,6 +31,7 @@ namespace ZenWebServer
     {
         public IElement element;
         public IGadgeteerBoard env;
+        public Assembly controllers;
     }
 }
 #endif

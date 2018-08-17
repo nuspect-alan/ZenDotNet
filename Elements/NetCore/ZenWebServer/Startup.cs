@@ -44,9 +44,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        Assembly Controllers = Assembly.LoadFile(Path.Combine(System.Environment.CurrentDirectory, "tmp", "WebServerController_" + _zenoConf.element.ID + ".zen"));
         services.AddMvc()
-            .AddApplicationPart(Controllers)
+            .AddApplicationPart(this._zenoConf.controllers)
             .AddControllersAsServices()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
@@ -64,8 +63,6 @@ public class Startup
 
         app.UseStaticFiles();
 
-
-
         app.UseMvc(routes =>
         {
 
@@ -78,11 +75,11 @@ public class Startup
                     name: "nodeExecute",
                     template: "{controller}/{action}/{nodeId}"
                     );
-             
-             routes.MapRoute(
-                    name: "getNodeValue",
-                    template: "{controller}/{action}/{nodeId}/{jsonPath}/{isTable}/{nodeDependency}"
-                    );
+
+            routes.MapRoute(
+                   name: "getNodeValue",
+                   template: "{controller}/{action}/{nodeId}/{jsonPath}/{isTable}/{nodeDependency}"
+                   );
 
         });
     }
