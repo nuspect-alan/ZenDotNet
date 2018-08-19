@@ -17,10 +17,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-
     <Reference Include="ZenCommon">
       <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
 </Project>

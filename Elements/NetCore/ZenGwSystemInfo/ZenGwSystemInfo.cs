@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Newtonsoft.Json;
 using ZenCommon;
 
 namespace ZenGwSystemInfo
@@ -147,9 +148,9 @@ namespace ZenGwSystemInfo
                         MeassureUnixSpecific(element);
                         break;
                 }
-                element.IsConditionMet = true;
-                element.LastResultBoxed = _htMeassurements;
 #endif
+            element.IsConditionMet = true;
+            element.LastResultBoxed = JsonConvert.SerializeObject(_htMeassurements);
         }
         #endregion
 
