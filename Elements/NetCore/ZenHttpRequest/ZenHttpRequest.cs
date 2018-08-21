@@ -33,6 +33,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Linq;
 using ZenCommon;
+using System.Text.RegularExpressions;
 
 namespace ZenHttpRequest
 {
@@ -232,7 +233,8 @@ namespace ZenHttpRequest
                         string value = s.Split('°')[1];
                         sFunctions += ZenCsScriptCore.GetFunction("return " + value + ";");
                     }
-                    _scriptHeaders = ZenCsScriptCore.Initialize(sFunctions, elements, element, Path.Combine("tmp", "HttpRequest", element.ID + "_Headers.zen"), parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
+                    if (!string.IsNullOrEmpty(sFunctions))
+                        _scriptHeaders = ZenCsScriptCore.Initialize(sFunctions, elements, element, Path.Combine("tmp", "HttpRequest", element.ID + "_Headers.zen"), parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
                 }
             }
 
@@ -295,7 +297,12 @@ namespace ZenHttpRequest
             lock (_syncCsScript)
             {
                 if (_scriptBody == null)
-                    _scriptBody = ZenCsScriptCore.Initialize(ZenCsScriptCore.GetFunction(string.Concat("return ", script, ";")), elements, element, GetCacheBodyFileName(element), null, parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
+                {
+                    string funct = ZenCsScriptCore.GetFunction(
+                        string.Concat(Regex.Match(ZenCsScriptCore.Decode(script), "\\s*return\\s*").Success ? string.Empty : "return ", script, ";"));
+
+                    _scriptBody = ZenCsScriptCore.Initialize(funct, elements, element, GetCacheBodyFileName(element), null, parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
+                }
             }
 
             switch (element.GetElementProperty("REQUEST_CONTENT_TYPE"))
