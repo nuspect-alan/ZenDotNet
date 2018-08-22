@@ -297,12 +297,7 @@ namespace ZenHttpRequest
             lock (_syncCsScript)
             {
                 if (_scriptBody == null)
-                {
-                    string funct = ZenCsScriptCore.GetFunction(
-                        string.Concat(Regex.Match(ZenCsScriptCore.Decode(script), "\\s*return\\s*").Success ? string.Empty : "return ", script, ";"));
-
-                    _scriptBody = ZenCsScriptCore.Initialize(funct, elements, element, GetCacheBodyFileName(element), null, parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
-                }
+                    _scriptBody = ZenCsScriptCore.Initialize(ZenCsScriptCore.GetFunction(script), elements, element, GetCacheBodyFileName(element), null, parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
             }
 
             switch (element.GetElementProperty("REQUEST_CONTENT_TYPE"))
