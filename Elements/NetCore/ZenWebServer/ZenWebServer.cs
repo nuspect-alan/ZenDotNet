@@ -309,7 +309,7 @@ namespace ZenWebServer
         Assembly GenerateControllerCode(IElement element, Hashtable elements)
         {
             Assembly assembly = null;
-            string filename = Path.Combine("tmp", "WebServerController_" + element.ID + ".zen");
+            string filename = Path.Combine("tmp", "WebServer", "Controller_" + element.ID + ".zen");
             if (!File.Exists(filename))
             {
                 List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
