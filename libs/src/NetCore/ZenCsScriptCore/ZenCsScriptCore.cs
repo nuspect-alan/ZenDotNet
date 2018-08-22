@@ -180,6 +180,20 @@ public class ZenCsScriptCore
     #region GetFunction
     public static string GetFunction(string body)
     {
+        // Check if function already contains return statement.
+        //
+        // Example of script body without return statement is simple condition statement:
+        // <result>ElementId</result> > 1 && <result>ElementId</result> < 100
+        // In this case wrap condition inside return statement.
+        //          ------------------------------------------------------------------
+        // |return| <result>ElementId</result> > 1 && <result>ElementId</result> < 100 |;|
+        //          ------------------------------------------------------------------
+        //
+        // User can also write complex logic that already contains return statement.
+        // Leave script body as it is. 
+        body = string.Concat(Regex.Match(body, "\\s*return\\s*").Success ?
+                string.Empty : "return ", body, ";");
+
         return string.Concat(string.Concat("<code run=\"true\" type=\"function\">", body, "</code>"));
     }
     #endregion
