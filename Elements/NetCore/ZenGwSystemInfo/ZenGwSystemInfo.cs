@@ -64,8 +64,22 @@ namespace ZenGwSystemInfo
         #endregion
 
 #if NETCOREAPP2_0
+        #region Fields
         #region _implementations
         static Dictionary<string, ZenGwSystemInfo> _implementations = new Dictionary<string, ZenGwSystemInfo>();
+        #endregion
+
+        #region _userProcessor
+        CpuUsage _userProcessor;
+        #endregion
+
+        #region _privilegedProcessor
+        CpuUsage _privilegedProcessor;
+        #endregion
+
+        #region _totalProcessor
+        CpuUsage _totalProcessor;
+        #endregion
         #endregion
 
         #region InitUnmanagedElements
@@ -119,18 +133,28 @@ namespace ZenGwSystemInfo
 #endif
 
         #region Functions
+
         #region Meassure
         public void Meassure(Hashtable elements, IElement element)
         {
 #if NETCOREAPP2_0
             if (element.GetElementProperty("USER_TIME_ACTIVE") == "1")
-                _htMeassurements["UserTime"] = _process.UserProcessorTime;
+            {
+                _userProcessor.CallCPU(_process.UserProcessorTime);
+                _htMeassurements["UserTime"] = _userProcessor.GetInfoTotal();
+            }
 
             if (element.GetElementProperty("PRIVILEGED_TIME_ACTIVE") == "1")
-                _htMeassurements["PrivilegedTime"] = _process.PrivilegedProcessorTime;
+            {
+                _privilegedProcessor.CallCPU(_process.PrivilegedProcessorTime);
+                _htMeassurements["PrivilegedTime"] = _privilegedProcessor.GetInfoTotal();
+            }
 
             if (element.GetElementProperty("PROCESSOR_TIME_ACTIVE") == "1")
-                _htMeassurements["ProcessorTime"] = _process.TotalProcessorTime;
+            {
+                _totalProcessor.CallCPU(_process.TotalProcessorTime);
+                _htMeassurements["ProcessorTime"] = _totalProcessor.GetInfoTotal();
+            }
 
             if (element.GetElementProperty("AVAILABLE_MEMORY_UNIT_ACTIVE") == "1")
                 _htMeassurements["RamCounter"] = (element.GetElementProperty("AVAILABLE_MEMORY_UNIT") == "KB")
@@ -159,6 +183,10 @@ namespace ZenGwSystemInfo
         {
 #if NETCOREAPP2_0
             _process = Process.GetCurrentProcess();
+
+            _userProcessor = new CpuUsage(_process.UserProcessorTime);
+            _privilegedProcessor = new CpuUsage(_process.PrivilegedProcessorTime);
+            _totalProcessor = new CpuUsage(_process.TotalProcessorTime);
 #else
             if (element.GetElementProperty("AVAILABLE_MEMORY_UNIT_ACTIVE") == "1")
             {
