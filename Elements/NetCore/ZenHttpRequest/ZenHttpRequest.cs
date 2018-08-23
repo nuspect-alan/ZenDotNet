@@ -303,7 +303,8 @@ namespace ZenHttpRequest
             switch (element.GetElementProperty("REQUEST_CONTENT_TYPE"))
             {
                 case "STRING":
-                    return new StringContent(_scriptBody.ZenCsScript.RunCustomCode(_scriptBody.ScriptDoc.DocumentNode.Descendants("code").FirstOrDefault().Attributes["id"].Value).ToString(), Encoding.UTF8, element.GetElementProperty("CONTENT_TYPE"));
+                    string content = _scriptBody.ZenCsScript.RunCustomCode(_scriptBody.ScriptDoc.DocumentNode.Descendants("code").FirstOrDefault().Attributes["id"].Value).ToString();
+                    return new StringContent(content, Encoding.UTF8, element.GetElementProperty("CONTENT_TYPE"));
 
                 case "FORM_URL_ENCODED":
                     throw new Exception("Url encoded content is not yet supported");
