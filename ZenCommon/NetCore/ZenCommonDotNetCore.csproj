@@ -5,22 +5,22 @@
     <AssemblyName>ZenCommon</AssemblyName>
     <RootNamespace>ZenCommon</RootNamespace>
     <Configurations>Debug;Release;Develop</Configurations>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath></OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|AnyCPU'">
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>$(ZENO_PROJ)\Implementations\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<Optimize>true</Optimize>
   </PropertyGroup>
 
   <ItemGroup>

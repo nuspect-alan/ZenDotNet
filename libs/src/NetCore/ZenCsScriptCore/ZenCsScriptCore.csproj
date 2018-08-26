@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Configurations>Debug;Release;Develop</Configurations>
     <DefineConstants>TRACE;NETCOREAPP2_0</DefineConstants>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,7 +18,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>bin\Release</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<Optimize>true</Optimize>
   </PropertyGroup>
 
   <ItemGroup>

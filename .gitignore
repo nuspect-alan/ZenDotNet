@@ -122,3 +122,15 @@
 /Elements/NetCore/ZenGwSystemInfo/obj
 /Elements/NetFramework/ZenGwSystemInfo/bin/Debug
 /Elements/NetFramework/ZenGwSystemInfo/obj
+/Elements/NetCore/ZenAssetReceiver/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenAssetTransmitter/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenElementActionCaller/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenExcelReader/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenGwSystemInfo/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenHttpRequest/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenLicenceChecker/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenMail/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenMySql/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenSqlServer/.vs/ZenSqlServer
+/Elements/NetCore/ZenSqlServer/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenWebServer/bin/Release/netcoreapp2.1
