@@ -555,12 +555,14 @@ public class ZenCsScriptCore
 #if NETCOREAPP2_0
     static string CompileAndSaveAssembly(string code, string references, string fileName)
     {
+        // TODO: Read assembly names dynamically
         List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Console")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Collections")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime.Extensions")).Location));
+        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.IO.FileSystem")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
 
         foreach (string s in Regex.Split(references, ","))
