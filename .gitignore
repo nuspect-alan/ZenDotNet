@@ -134,3 +134,5 @@
 /Elements/NetCore/ZenSqlServer/.vs/ZenSqlServer
 /Elements/NetCore/ZenSqlServer/bin/Release/netcoreapp2.1
 /Elements/NetCore/ZenWebServer/bin/Release/netcoreapp2.1
+/Elements/NetCore/ZenWebServer/Views/Home
+/Elements/NetCore/ZenWebServer/wwwroot/ZenSystemContent
