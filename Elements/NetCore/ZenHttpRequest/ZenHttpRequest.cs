@@ -325,9 +325,6 @@ namespace ZenHttpRequest
                     _scriptUrl = ZenCsScriptCore.Initialize(text, elements, element, GetCacheUrlFileName(element), parentBoard, element.GetElementProperty("PRINT_CODE") == "1");
             }
             string url = ZenCsScriptCore.GetCompiledText(text, _scriptUrl, elements, element, parentBoard, GetCacheUrlFileName(element), element.GetElementProperty("PRINT_CODE") == "1");
-            if (element.GetElementProperty("DO_DEBUG") == "1")
-                Console.WriteLine(url);
-
             return url;
         }
         #endregion
