@@ -338,7 +338,7 @@ namespace ZenWebServer
 
                 var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
                 options = options.WithOptimizationLevel(OptimizationLevel.Release);
-                options = options.WithPlatform(Platform.X64);
+                options = options.WithPlatform(Platform.AnyCpu);
                 var tree = CSharpSyntaxTree.ParseText(string.Concat(usings, Environment.NewLine, code, Environment.NewLine, ZEN_CODE));
                 var compilation = CSharpCompilation.Create("zenCompile", syntaxTrees: new[] { tree }, references: coreReferencesPaths.ToArray(), options: options);
 

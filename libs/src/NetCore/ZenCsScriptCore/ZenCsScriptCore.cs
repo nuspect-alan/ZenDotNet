@@ -558,6 +558,7 @@ public class ZenCsScriptCore
         // TODO: Read assembly names dynamically
         List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System")).Location));
+        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.IO")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Console")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Collections")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime")).Location));
@@ -573,7 +574,7 @@ public class ZenCsScriptCore
 
         var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
         options = options.WithOptimizationLevel(OptimizationLevel.Release);
-        options = options.WithPlatform(Platform.X64);
+        options = options.WithPlatform(Platform.AnyCpu);
         var tree = CSharpSyntaxTree.ParseText(code);
         var compilation = CSharpCompilation.Create("zenCompile", syntaxTrees: new[] { tree }, references: coreReferencesPaths.ToArray(), options: options);
         string errors = string.Empty;
