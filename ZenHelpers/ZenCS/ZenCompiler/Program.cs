@@ -71,7 +71,7 @@ namespace ZenCS
                 if (File.Exists(outFile))
                     File.Delete(outFile);
 
-                string proc = ZenCsScriptCore.GetProcedure(File.ReadAllText(scriptFile));
+                string proc = File.ReadAllText(scriptFile);
                 ZenCsScriptData script = ZenCsScriptCore.Initialize(proc, ZenMocks.Elements, ZenMocks.Element,
                     outFile, ZenMocks.Board, false);
 

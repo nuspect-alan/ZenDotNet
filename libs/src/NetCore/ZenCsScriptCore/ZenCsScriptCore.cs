@@ -316,30 +316,30 @@ public class ZenCsScriptCore
         //*********************  BEGIN INSIDE CODE TAGS LOGIC******************************************/
         foreach (HtmlNode node in doc.DocumentNode.Descendants("code"))
         {
-            if (string.IsNullOrEmpty(node.InnerHtml))
+            if (string.IsNullOrEmpty(node.InnerText))
                 continue;
 
-            string nodeContent = node.InnerHtml;
+            string nodeContent = node.InnerText;
             foreach (HtmlNode tagNode in node.Descendants("result"))
                 nodeContent = ReplaceResultTagWithCast(tagNode, elements, nodeContent, false);
 
             foreach (HtmlNode tagNode in node.Descendants("error_code"))
-                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerHtml + "\"]).ErrorCode");
+                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerText + "\"]).ErrorCode");
 
             foreach (HtmlNode tagNode in node.Descendants("error_message"))
-                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerHtml + "\"]).ErrorMessage");
+                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerText + "\"]).ErrorMessage");
 
             foreach (HtmlNode tagNode in node.Descendants("status"))
-                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "(((IElement)_elements[\"" + tagNode.InnerHtml + "\"]).Status).ToString()");
+                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "(((IElement)_elements[\"" + tagNode.InnerText + "\"]).Status).ToString()");
 
             foreach (HtmlNode tagNode in node.Descendants("started"))
-                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerHtml + "\"]).Started");
+                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerText + "\"]).Started");
 
             foreach (HtmlNode tagNode in node.Descendants("ms_elapsed"))
-                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerHtml + "\"]).MsElapsed");
+                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerText + "\"]).MsElapsed");
 
             foreach (HtmlNode tagNode in node.Descendants("last_executed_date"))
-                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerHtml + "\"]).LastExecutionDate");
+                nodeContent = nodeContent.Replace(tagNode.OuterHtml, "((IElement)_elements[\"" + tagNode.InnerText + "\"]).LastExecutionDate");
 
             if (node.Attributes.Contains("run") && node.Attributes["run"].Value == "true")
             {
