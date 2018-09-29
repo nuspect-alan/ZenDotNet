@@ -109,9 +109,14 @@ public class ZenCsScriptCore
             List<string> deaultReferences = new List<string>();
             //if native, read reference from current implementation folder
 #if NETCOREAPP2_0
-            deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "ZenCsScriptCore.dll"));
-            deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "Newtonsoft.Json.dll"));
-            deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations", "ZenCommon.dll"));
+            // When called from template, references are in Implementation folder.
+            // When called from helpers apps (eg zencs), references are in app folder
+            string currFolder = string.IsNullOrEmpty(ParentBoard.TemplateRootDirectory) ?
+                Environment.CurrentDirectory : Path.Combine(ParentBoard.TemplateRootDirectory, "Implementations");
+
+            deaultReferences.Add(Path.Combine(currFolder, "ZenCsScriptCore.dll"));
+            deaultReferences.Add(Path.Combine(currFolder, "Newtonsoft.Json.dll"));
+            deaultReferences.Add(Path.Combine(currFolder, "ZenCommon.dll"));
 #else
             deaultReferences.Add(Path.Combine(ParentBoard.TemplateRootDirectory, "Dependencies", "ZenCsScriptCore", "1.0.0.0", "ZenCsScriptCore.dll"));
             deaultReferences.Add(Path.Combine(Environment.CurrentDirectory, "Newtonsoft.Json.dll"));
@@ -130,13 +135,15 @@ public class ZenCsScriptCore
             //Replace result tags with element castings based on their current values and return code as string
             string generatedCode = GenerateCode(rawScript, elements, element, Order, fileName, callable, doc, ParentBoard, debug, usings);
 
-
 #if NETCOREAPP2_0
             string coreClrReferences = string.Empty;
             foreach (string s in references)
                 coreClrReferences += s + ",";
 
-            string root = Directory.GetParent(Directory.GetParent(Path.Combine(ParentBoard.TemplateRootDirectory)).FullName).FullName;
+            string root = string.IsNullOrEmpty(ParentBoard.TemplateRootDirectory) ?
+                    Environment.CurrentDirectory :
+                    Directory.GetParent(Directory.GetParent(Path.Combine(ParentBoard.TemplateRootDirectory)).FullName).FullName;
+
             fileName = Path.Combine(root, fileName);
             string errors = CompileAndSaveAssembly(generatedCode, coreClrReferences, fileName);
 #else
