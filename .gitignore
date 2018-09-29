@@ -136,3 +136,6 @@
 /Elements/NetCore/ZenWebServer/bin/Release/netcoreapp2.1
 /Elements/NetCore/ZenWebServer/Views/Home
 /Elements/NetCore/ZenWebServer/wwwroot/ZenSystemContent
+/ZenHelpers/ZenCS/ZenCompiler/bin
+/ZenHelpers/ZenCS/ZenCompiler/obj
+/ZenHelpers/ZenCS/.vs

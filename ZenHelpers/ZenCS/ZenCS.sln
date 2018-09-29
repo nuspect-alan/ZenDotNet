@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27924.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenCS", "ZenCompiler\ZenCS.csproj", "{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenCsScriptCore", "..\..\libs\src\NetCore\ZenCsScriptCore\ZenCsScriptCore.csproj", "{28A39A27-EC42-4857-A206-17EB30CB19D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Develop|Any CPU = Develop|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}.Develop|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}.Develop|Any CPU.Build.0 = Debug|Any CPU
+		{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF9C1D3-7E9C-4EEC-B4B8-73430D29D766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
+		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Develop|Any CPU.Build.0 = Develop|Any CPU
+		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {642C3CF1-1E40-463E-8FE8-74CBF1994A15}
+	EndGlobalSection
+EndGlobal
