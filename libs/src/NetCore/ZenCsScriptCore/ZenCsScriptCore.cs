@@ -562,21 +562,19 @@ public class ZenCsScriptCore
 #if NETCOREAPP2_0
     static string CompileAndSaveAssembly(string code, string references, string fileName)
     {
-        // TODO: Read assembly names dynamically
         List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System")).Location));
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.IO")).Location));
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Console")).Location));
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Collections")).Location));
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime")).Location));
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.Runtime.Extensions")).Location));
-        coreReferencesPaths.Add(MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName("System.IO.FileSystem")).Location));
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
 
         foreach (string s in Regex.Split(references, ","))
         {
             if (!string.IsNullOrEmpty(s))
-                coreReferencesPaths.Add(MetadataReference.CreateFromFile(s));
+            {
+                coreReferencesPaths.Add(
+                    File.Exists(s) ?
+                    MetadataReference.CreateFromFile(s)
+                    :
+                    MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName(s)).Location));
+            }
         }
 
         var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
@@ -959,7 +957,31 @@ public class ZenCsScriptCore
     #region GetReferences
     static List<string> GetReferences(HtmlNode headerNode, List<string> references, IGadgeteerBoard ParentBoard)
     {
-#if !NETCOREAPP2_0
+#if NETCOREAPP2_0
+        references.Add("System");
+        references.Add("System.Core");
+        references.Add("System.Collections");
+        references.Add("System.Runtime.Extensions");
+        references.Add("System.Runtime");
+
+        if (headerNode != null)
+        {
+            string code = Decode(headerNode.InnerText);
+            foreach (string line in code.Split(';'))
+            {
+                if (line.Trim().StartsWith("reference"))
+                {
+                    references.Add(line.Trim().Replace("reference", string.Empty));
+                }
+                else if (line.Trim().StartsWith("//"))
+                {
+                    //Ignore comments in references section
+                }
+                else
+                    break;
+            }
+        }
+#else
         references.Add("System.dll");
         references.Add("System.Core.dll");
         references.Add("System.Data.dll");
