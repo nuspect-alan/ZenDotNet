@@ -80,8 +80,6 @@ namespace ZenCS
         internal static void FillMocks()
         {
             IGadgeteerBoard mockBoard = new GadgeteerBoard(string.Empty, "compile");
-            
-            //mockBoard.TemplateRootDirectory
             foreach (string mockElement in File.ReadAllText("mocks.csv").Split(Environment.NewLine))
             {
                 string[] element = mockElement.Split(',');
