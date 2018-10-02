@@ -18,17 +18,21 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Implementations\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\libs\src\NetCore\ZenCsScriptCore\ZenCsScriptCore.csproj" />
+    <ProjectReference Include="..\..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\libs\HtmlAgilityPack\1.6.2\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="ZenCommon">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
-    </Reference>
-    <Reference Include="ZenCsScriptCore">
-      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+      <HintPath>..\..\..\libs\HtmlAgilityPack\1.8.8\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy  $(TargetDir)*.dll $(SolutionDir)Implementations /Y&#xD;&#xA;del   $(SolutionDir)Implementations\netcoreapp2.1 /S /Q" />
+  </Target>
 </Project>

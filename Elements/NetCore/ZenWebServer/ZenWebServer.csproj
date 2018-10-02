@@ -23,18 +23,21 @@
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	<Optimize>true</Optimize>
+	<OutputPath>..\..\..\Implementations\</OutputPath>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0-preview2-35157" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0-preview2-35157" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0-preview2-35157" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <Reference Include="ZenCommon">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj" />
   </ItemGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy  $(TargetDir)*.dll $(SolutionDir)Implementations /Y&#xD;&#xA;del   $(SolutionDir)Implementations\netcoreapp2.1 /S /Q" />
+  </Target>
 
 </Project>

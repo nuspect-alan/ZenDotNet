@@ -18,7 +18,13 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Implementations\</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\libs\src\NetCore\ZenCsScriptCore\ZenCsScriptCore.csproj" />
+    <ProjectReference Include="..\..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Common.Logging.Core">
@@ -55,14 +61,12 @@
       <HintPath>..\..\..\libs\Nethereum.Web3\Nethereum.Web3.2.4.0\lib\netstandard1.1\Nethereum.Web3.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\libs\Newtonsoft.Json\10.0.0.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="ZenCommon">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
-    </Reference>
-    <Reference Include="ZenCsScriptCore">
-      <HintPath>..\..\..\libs\ZenCsScriptCore\ZenCsScriptCore.1.0.0\lib\netcoreapp2.0\ZenCsScriptCore.dll</HintPath>
+      <HintPath>..\..\..\libs\Newtonsoft.Json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy  $(TargetDir)*.dll $(SolutionDir)Implementations /Y&#xD;&#xA;del   $(SolutionDir)Implementations\netcoreapp2.1 /S /Q" />
+  </Target>
 
 </Project>

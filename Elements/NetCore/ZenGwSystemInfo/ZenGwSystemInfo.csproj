@@ -18,16 +18,21 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	<Optimize>true</Optimize>
+	<OutputPath>..\..\..\Implementations\</OutputPath>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <Reference Include="ZenCommon">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\libs\Newtonsoft.Json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy  $(TargetDir)*.dll $(SolutionDir)Implementations /Y&#xD;&#xA;del   $(SolutionDir)Implementations\netcoreapp2.1 /S /Q" />
+  </Target>
 
 </Project>
