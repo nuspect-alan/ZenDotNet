@@ -187,6 +187,9 @@ public class ZenCsScriptCore
     #region GetFunction
     public static string GetFunction(string body)
     {
+        string references = string.Empty;
+        string code = string.Empty;
+
         // Check if function already contains return statement.
         //
         // Example of script body without return statement is simple condition statement:
@@ -201,14 +204,21 @@ public class ZenCsScriptCore
         body = string.Concat(Regex.Match(body, "\\s*return\\s*").Success ?
                 string.Empty : "return ", body, ";");
 
-        return string.Concat(string.Concat("<code run=\"true\" type=\"function\">", body, "</code>"));
+        // Split body in two parts, so that can be correctly  concated afterwards
+        SplitReferencesAndCode(body, out references, out code);
+        return string.Concat(references, "<code run=\"true\" type=\"function\">", code, "</code>");
     }
     #endregion
 
     #region GetProcedure
     public static string GetProcedure(string body)
     {
-        return string.Concat("<code run=\"true\" type=\"procedure\">", body, "</code>");
+        string references = string.Empty;
+        string code = string.Empty;
+
+        // Split body in two parts, so that can be correctly  concated afterwards
+        SplitReferencesAndCode(body, out references, out code);
+        return string.Concat(references, "<code run=\"true\" type=\"procedure\">", code, "</code>");
     }
     #endregion
 
@@ -228,6 +238,34 @@ public class ZenCsScriptCore
     #endregion
 
     #region Private
+    #region SplitReferencesAndCode
+    // Splits references and code in two parts.
+    // For example, this code would be splitted in two parts:
+    // <header>
+    // reference System.IO;
+    // using System.IO;
+    // </header>
+    // 
+    // return System.IO.File.ReadAllText("myFile.txt");
+    //
+    // references variable would contain header tags and code variable would contain return statement
+    static void SplitReferencesAndCode(string body, out string references, out string code)
+    {
+        references = string.Empty;
+        code = string.Empty;
+        body = Decode(body);
+
+        MatchCollection match = Regex.Matches(body, @"<(\s*)header(.*?)(\s*)>[^<]*<(\s*)/(\s*)header(\s*)>");
+        if (match.Count > 0)
+        {
+            references = match[0].Value;
+            code = body.Replace(references, string.Empty);
+        }
+        else
+            code = body;
+    }
+    #endregion
+
     #region ReplaceNodeText
     static string ReplaceNodeText(string outerHtml, ZenCsScriptData scriptData, string nodeName)
     {
@@ -570,10 +608,10 @@ public class ZenCsScriptCore
             if (!string.IsNullOrEmpty(s))
             {
                 coreReferencesPaths.Add(
-                    File.Exists(s) ?
-                    MetadataReference.CreateFromFile(s)
+                    File.Exists(s.Trim()) ?
+                    MetadataReference.CreateFromFile(s.Trim())
                     :
-                    MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName(s)).Location));
+                    MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName(s.Trim())).Location));
             }
         }
 
@@ -584,20 +622,21 @@ public class ZenCsScriptCore
         var compilation = CSharpCompilation.Create("zenCompile", syntaxTrees: new[] { tree }, references: coreReferencesPaths.ToArray(), options: options);
         string errors = string.Empty;
         var diagnostics = compilation.GetDiagnostics();
+        bool bIsError = false;
         if (diagnostics.Length > 0)
         {
             foreach (var diagnostic in diagnostics)
             {
-                if (diagnostic.IsWarningAsError)
+                if (diagnostic.Severity == DiagnosticSeverity.Error)
                 {
+                    bIsError = true;
                     errors += diagnostic.GetMessage();
-                    Console.WriteLine(diagnostic.GetMessage());
                 }
                 Console.WriteLine(diagnostic.GetMessage());
             }
         }
 
-        if (string.IsNullOrEmpty(errors))
+        if (!bIsError)
         {
             if (!Directory.Exists(Path.GetDirectoryName(fileName)))
                 Directory.CreateDirectory(Path.GetDirectoryName(fileName));
