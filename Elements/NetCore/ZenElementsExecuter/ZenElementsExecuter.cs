@@ -164,7 +164,7 @@ namespace ZenElementsExecuter
                         int order = string.IsNullOrEmpty(Regex.Split(s, "#100#")[2]) ? 0 : Convert.ToInt32(Regex.Split(s, "#100#")[2]);
                         condition = string.IsNullOrEmpty(condition) ? "true" : condition;
                         //TO DO : Don't compile for true statements.....
-                        _scripts.Add(id, ZenCsScriptCore.Initialize(ZenCsScriptCore.GetFunction(string.Concat("return ", condition, ";")), elements, element, order, Path.Combine("tmp", "ElementsExecuter", element.ID + "_" + id + ".zen"), null, ParentBoard, element.GetElementProperty("PRINT_CODE") == "1"));
+                        _scripts.Add(id, ZenCsScriptCore.Initialize(ZenCsScriptCore.GetFunction(condition), elements, element, order, Path.Combine("tmp", "ElementsExecuter", element.ID + "_" + id + ".zen"), null, ParentBoard, element.GetElementProperty("PRINT_CODE") == "1"));
                     }
                 }
 
