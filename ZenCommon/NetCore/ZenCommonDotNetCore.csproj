@@ -31,6 +31,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) ==  Release (&#xD;&#xA;xcopy  $(TargetDir)*.dll $(SolutionDir)Implementations /Y&#xD;&#xA;del   $(SolutionDir)Implementations\netcoreapp2.1 /S /Q&#xD;&#xA;)" />
+    <Exec Command="if $(ConfigurationName) ==  Release ( &#xD;&#xA;    if $(SolutionName) == ZenDotNetCoreComplete  (&#xD;&#xA;        xcopy  $(TargetDir)*.dll $(SolutionDir)Implementations /Y&#xD;&#xA;    )&#xD;&#xA;)" />
   </Target>
 </Project>
