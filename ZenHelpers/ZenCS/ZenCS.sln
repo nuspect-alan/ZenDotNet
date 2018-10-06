@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenCS", "ZenCompiler\ZenCS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenCsScriptCore", "..\..\libs\src\NetCore\ZenCsScriptCore\ZenCsScriptCore.csproj", "{28A39A27-EC42-4857-A206-17EB30CB19D8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenCommonDotNetCore", "..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj", "{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Develop|Any CPU.Build.0 = Develop|Any CPU
 		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28A39A27-EC42-4857-A206-17EB30CB19D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
+		{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}.Develop|Any CPU.Build.0 = Develop|Any CPU
+		{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB6B34C-62D6-477A-AD09-E8B60CA01BF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

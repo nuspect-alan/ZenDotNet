@@ -17,11 +17,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libs\src\NetCore\ZenCsScriptCore\ZenCsScriptCore.csproj" />
+    <ProjectReference Include="..\..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\..\..\Zenodys\ZenDotNet\libs\HtmlAgilityPack\1.6.2\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\libs\HtmlAgilityPack\1.8.8\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis">
       <HintPath>..\..\..\..\..\Zenodys\ComputingCase\ZenEngine\NETCoreRuntime\Microsoft.CodeAnalysis.dll</HintPath>
@@ -30,10 +31,7 @@
       <HintPath>..\..\..\..\..\Zenodys\ComputingCase\ZenEngine\NETCoreRuntime\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\libs\Newtonsoft.Json\10.0.0.0\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="ZenCommon">
-      <HintPath>..\..\..\libs\ZenCommon\ZenCommon.1.0.0\lib\netcoreapp2.0\ZenCommon.dll</HintPath>
+      <HintPath>..\..\..\libs\Newtonsoft.Json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
 
