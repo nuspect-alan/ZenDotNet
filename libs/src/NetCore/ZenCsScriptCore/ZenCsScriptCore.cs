@@ -519,7 +519,7 @@ public class ZenCsScriptCore
 
                                 "public string RawHtml" +
                                 "{" +
-                                    "get { return " + (string.IsNullOrEmpty(htmlDoc) ? "string.Empty" : "\"" + htmlDoc + "\"") + ";}" +
+                                    "get { return @" + (string.IsNullOrEmpty(htmlDoc) ? "string.Empty" : "\"" + htmlDoc + "\"") + ";}" +
                                 "}" +
 
                                  "public int Order { get { return " + Order + "; } }" +
@@ -636,13 +636,20 @@ public class ZenCsScriptCore
             }
         }
 
+        if (!Directory.Exists(Path.GetDirectoryName(fileName)))
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+
         if (!bIsError)
         {
-            if (!Directory.Exists(Path.GetDirectoryName(fileName)))
-                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
-
             compilation.Emit(fileName);
         }
+        else
+        {
+            File.WriteAllText(
+                Path.Combine(Path.GetDirectoryName(fileName), "err_" + Path.GetFileNameWithoutExtension(fileName) + ".cs"),
+                code);
+        }
+
         return errors;
     }
 #else
