@@ -600,7 +600,7 @@ public class ZenCsScriptCore
 #if NETCOREAPP2_0
     static string CompileAndSaveAssembly(string code, string references, string fileName)
     {
-        List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();
+        List<MetadataReference> coreReferencesPaths = new List<MetadataReference>();  
         coreReferencesPaths.Add(MetadataReference.CreateFromFile(typeof(object).Assembly.Location));
 
         foreach (string s in Regex.Split(references, ","))
@@ -1005,6 +1005,7 @@ public class ZenCsScriptCore
     {
 #if NETCOREAPP2_0
         references.Add("System");
+        references.Add("System.Console");
         references.Add("System.Core");
         references.Add("System.Collections");
         references.Add("System.Runtime.Extensions");
