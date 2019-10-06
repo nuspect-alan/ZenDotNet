@@ -1,11 +1,11 @@
 @echo off
 	
-    setlocal enableextensions disabledelayedexpansion
-    set "newDir=..\..\"
-    call :resolve "%newDir%" resolvedDir
+    	setlocal enableextensions disabledelayedexpansion
+    	set "newDir=..\..\"
+    	call :resolve "%newDir%" resolvedDir
 	
 	set SolutionDir=%resolvedDir%
-    set SolutionName=ZenDotNetCoreComplete
+    	set SolutionName=ZenDotNetCoreComplete
 	
 	rmdir %SolutionDir%\Implementations /S /Q
 	if exist "%SolutionDir%\Implementations" rmdir "%SolutionDir%\Implementations" /S /Q

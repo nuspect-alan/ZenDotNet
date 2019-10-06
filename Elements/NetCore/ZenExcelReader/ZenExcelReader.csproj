@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) ==  Release (&#xD;&#xA;xcopy  &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)Implementations&quot; /Y&#xD;&#xA;del   &quot;$(SolutionDir)Implementations\netcoreapp2.1&quot; /S /Q&#xD;&#xA;)" />
+    <Exec Command="if $(ConfigurationName) ==  Release (&#xD;&#xA;xcopy  &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)Implementations&quot; /Y&#xD;&#xA;del   &quot;$(SolutionDir)Implementations\netcoreapp2.2&quot; /S /Q&#xD;&#xA;)" />
   </Target>
 
 </Project>
