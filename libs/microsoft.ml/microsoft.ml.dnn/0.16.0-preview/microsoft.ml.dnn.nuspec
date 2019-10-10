@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.ML.Dnn</id>
+    <version>0.16.0-preview</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://dot.net/ml</projectUrl>
+    <iconUrl>https://aka.ms/mlnetlogo</iconUrl>
+    <description>Microsoft.ML.Dnn contains APIs to do high level DNN training such as image classification.</description>
+    <releaseNotes>https://aka.ms/mlnetreleasenotes</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>ML.NET ML Machine Learning</tags>
+    <repository url="https://github.com/dotnet/machinelearning" commit="de36f6dae852b973bd54aee3d7125127719f1666" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.ML" version="1.4.0-preview" exclude="Build,Analyzers" />
+        <dependency id="SciSharp.TensorFlow.Redist" version="1.14.0" include="All" />
+        <dependency id="System.IO.FileSystem.AccessControl" version="4.5.0" include="All" />
+        <dependency id="System.Security.Principal.Windows" version="4.5.0" include="All" />
+        <dependency id="TensorFlow.NET" version="0.10.10" include="All" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

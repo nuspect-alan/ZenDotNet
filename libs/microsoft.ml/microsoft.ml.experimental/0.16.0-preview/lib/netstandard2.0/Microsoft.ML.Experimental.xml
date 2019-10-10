@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.ML.Experimental</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.GetOutputSchema">
+            <summary>
+            The output <see cref="T:Microsoft.ML.DataViewSchema"/> that will be produced by the loader.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Load(Microsoft.ML.Data.DatabaseSource)">
+            <summary>
+            Loads data from <paramref name="source"/> into an <see cref="T:Microsoft.ML.IDataView"/>.
+            </summary>
+            <param name="source">The source from which to load data.</param>
+        </member>
+        <member name="T:Microsoft.ML.Data.DatabaseLoader.Column">
+            <summary>
+            Describes how an input column should be mapped to an <see cref="T:Microsoft.ML.IDataView"/> column.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Column.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ML.Data.DatabaseLoader.Column"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Column.#ctor(System.String,System.Data.DbType,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ML.Data.DatabaseLoader.Column"/> class.
+            </summary>
+            <param name="name">Name of the column.</param>
+            <param name="dbType"><see cref="T:System.Data.DbType"/> of the items in the column.</param>
+            <param name="index">Index of the column.</param>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Column.#ctor(System.String,System.Data.DbType,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ML.Data.DatabaseLoader.Column"/> class.
+            </summary>
+            <param name="name">Name of the column.</param>
+            <param name="dbType"><see cref="T:System.Data.DbType"/> of the items in the column.</param>
+            <param name="minIndex">The minimum inclusive index of the column.</param>
+            <param name="maxIndex">The maximum-inclusive index of the column.</param>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Column.#ctor(System.String,System.Data.DbType,Microsoft.ML.Data.DatabaseLoader.Range[],Microsoft.ML.Data.KeyCount)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ML.Data.DatabaseLoader.Column"/> class.
+            </summary>
+            <param name="name">Name of the column.</param>
+            <param name="dbType"><see cref="T:System.Data.DbType"/> of the items in the column.</param>
+            <param name="source">Source index range(s) of the column.</param>
+            <param name="keyCount">For a key column, this defines the range of values.</param>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Column.Name">
+            <summary>
+            Name of the column.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Column.Type">
+            <summary>
+            <see cref="T:System.Data.DbType"/> of the items in the column.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Column.Source">
+            <summary>
+            Source index range(s) of the column.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Column.KeyCount">
+            <summary>
+            For a key column, this defines the range of values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Data.DatabaseLoader.Range">
+            <summary>
+            Specifies the range of indices of input columns that should be mapped to an output column.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Range.#ctor(System.Int32)">
+            <summary>
+            A range representing a single value. Will result in a scalar column.
+            </summary>
+            <param name="index">The index of the field of the table to read.</param>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Range.#ctor(System.Int32,System.Int32)">
+            <summary>
+            A range representing a set of values. Will result in a vector column.
+            </summary>
+            <param name="min">The minimum inclusive index of the column.</param>
+            <param name="max">The maximum-inclusive index of the column.</param>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Range.Min">
+            <summary>
+             The minimum index of the column, inclusive.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Range.Max">
+            <summary>
+            The maximum index of the column, inclusive.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Range.ForceVector">
+            <summary>
+            Force scalar columns to be treated as vectors of length one.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Data.DatabaseLoader.Options">
+            <summary>
+            The settings for <see cref="T:Microsoft.ML.Data.DatabaseLoader"/>
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Options.Columns">
+            <summary>
+            Specifies the input columns that should be mapped to <see cref="T:Microsoft.ML.IDataView"/> columns.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Data.DatabaseLoader.Segment">
+            <summary>
+            Used as an input column range.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Data.DatabaseLoader.ColInfo">
+            <summary>
+            Information for an output column.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Data.DatabaseLoader.Bindings.Infos">
+            <summary>
+            <see cref="F:Microsoft.ML.Data.DatabaseLoader.Bindings.Infos"/>[i] stores the i-th column's name and type. Columns are loaded from the input database.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Bindings.ConstructKeyType(System.Data.DbType,Microsoft.ML.Data.KeyCount)">
+            <summary>
+            Construct a <see cref="T:Microsoft.ML.Data.KeyDataViewType"/> out of the DbType and the keyCount.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Cursor.IsColumnActive(Microsoft.ML.DataViewSchema.Column)">
+            <summary>
+            Returns whether the given column is active in this row.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseLoader.Cursor.GetGetter``1(Microsoft.ML.DataViewSchema.Column)">
+            <summary>
+            Returns a value getter delegate to fetch the value of column with the given columnIndex, from the row.
+            This throws if the column is not active in this row, or if the type
+            <typeparamref name="TValue"/> differs from this column's type.
+            </summary>
+            <typeparam name="TValue"> is the column's content type.</typeparam>
+            <param name="column"> is the output column whose getter should be returned.</param>
+        </member>
+        <member name="T:Microsoft.ML.Data.DatabaseSource">
+            <summary>Exposes the data required for opening a database for reading.</summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DatabaseSource.#ctor(System.Data.Common.DbProviderFactory,System.String,System.String)">
+            <summary>Creates a new instance of the <see cref="T:Microsoft.ML.Data.DatabaseSource" /> class.</summary>
+            <param name="providerFactory">The factory used to create the <see cref="T:System.Data.Common.DbConnection"/>..</param>
+            <param name="connectionString">The string used to open the connection.</param>
+            <param name="commandText">The text command to run against the data source.</param>
+        </member>
+        <member name="P:Microsoft.ML.Data.DatabaseSource.CommandText">
+            <summary>Gets the text command to run against the data source.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Data.DatabaseSource.ConnectionString">
+            <summary>Gets the string used to open the connection.</summary>
+        </member>
+        <member name="P:Microsoft.ML.Data.DatabaseSource.ProviderFactory">
+            <summary>Gets the factory used to create the <see cref="T:System.Data.Common.DbConnection"/>.</summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DbExtensions.ToType(System.Data.DbType)">
+            <summary>
+            Maps a <see cref="T:System.Data.DbType"/> to the associated .Net representation type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Data.DbExtensions.ToDbType(Microsoft.ML.Data.InternalDataKind)">
+            <summary>Maps a <see cref="T:Microsoft.ML.Data.InternalDataKind"/> to the associated <see cref="T:System.Data.DbType"/>.</summary>
+        </member>
+        <member name="T:Microsoft.ML.DatabaseLoaderCatalog">
+            <summary>
+            Collection of extension methods for the <see cref="T:Microsoft.ML.DataOperationsCatalog"/> to read from databases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.DatabaseLoaderCatalog.CreateDatabaseLoader(Microsoft.ML.DataOperationsCatalog,Microsoft.ML.Data.DatabaseLoader.Column[])">
+            <summary>Create a database loader <see cref="T:Microsoft.ML.Data.DatabaseLoader"/>.</summary>
+            <param name="catalog">The <see cref="T:Microsoft.ML.DataOperationsCatalog"/> catalog.</param>
+            <param name="columns">Array of columns <see cref="T:Microsoft.ML.Data.DatabaseLoader.Column"/> defining the schema.</param>
+        </member>
+        <member name="M:Microsoft.ML.DatabaseLoaderCatalog.CreateDatabaseLoader(Microsoft.ML.DataOperationsCatalog,Microsoft.ML.Data.DatabaseLoader.Options)">
+            <summary>Create a database loader <see cref="T:Microsoft.ML.Data.DatabaseLoader"/>.</summary>
+            <param name="catalog">The <see cref="T:Microsoft.ML.DataOperationsCatalog"/> catalog.</param>
+            <param name="options">Defines the settings of the load operation.</param>
+        </member>
+        <member name="M:Microsoft.ML.DatabaseLoaderCatalog.CreateDatabaseLoader``1(Microsoft.ML.DataOperationsCatalog)">
+            <summary>Create a database loader <see cref="T:Microsoft.ML.Data.DatabaseLoader"/>.</summary>
+            <typeparam name="TInput">Defines the schema of the data to be loaded. Use public fields or properties
+            decorated with <see cref="T:Microsoft.ML.Data.LoadColumnAttribute"/> (and possibly other attributes) to specify the column
+            names and their data types in the schema of the loaded data.</typeparam>
+            <param name="catalog">The <see cref="T:Microsoft.ML.DataOperationsCatalog"/> catalog.</param>
+        </member>
+        <member name="M:Microsoft.ML.Experimental.MLContextExtensions.CancelExecution(Microsoft.ML.MLContext)">
+            <summary>
+            Stop the execution of pipeline in <see cref="T:Microsoft.ML.MLContext"/>
+            </summary>
+            <param name="ctx"><see cref="T:Microsoft.ML.MLContext"/> reference.</param>
+        </member>
+        <member name="M:Microsoft.ML.Experimental.OneToOneTransformerBaseExtensions.GetColumnPairs(Microsoft.ML.Data.OneToOneTransformerBase)">
+            <summary>
+            Returns the names of the input-output column pairs on which the transformation is applied.
+            </summary>
+        </member>
+    </members>
+</doc>

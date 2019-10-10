@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.ML.Experimental</id>
+    <version>0.16.0-preview</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://dot.net/ml</projectUrl>
+    <iconUrl>https://aka.ms/mlnetlogo</iconUrl>
+    <description>Microsoft.ML.Experimental contains experimental work such extension methods to access internal methods.</description>
+    <releaseNotes>https://aka.ms/mlnetreleasenotes</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>ML.NET ML Machine Learning</tags>
+    <repository url="https://github.com/dotnet/machinelearning" commit="de36f6dae852b973bd54aee3d7125127719f1666" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.ML" version="1.4.0-preview" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

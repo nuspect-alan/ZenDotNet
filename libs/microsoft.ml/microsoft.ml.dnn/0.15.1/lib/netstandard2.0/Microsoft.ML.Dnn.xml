@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.ML.Dnn</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.ML.DnnCatalog">
+            <summary>
+        The <see cref="T:Microsoft.ML.Transforms.DnnTransformer" /> is used in following two scenarios.
+        <list type="number">
+        <item>
+          <description>
+            Scoring with pretrained <a href="https://www.tensorflow.org/">TensorFlow</a> model: In this mode, the transform extracts hidden layers' values from a pre-trained Tensorflow model and uses outputs as features in ML.Net pipeline.
+          </description>
+        </item>
+        <item>
+          <description>
+            Retraining of <a href="https://www.tensorflow.org/">TensorFlow</a> model: In this mode, the transform retrains a TensorFlow model using the user data passed through ML.Net pipeline. Once the model is trained, it's outputs can be used as features for scoring.
+          </description>
+        </item>
+      </list>
+      </summary><remarks>
+        <para>
+          The DnnTransform extracts specified outputs using a pre-trained <a href="https://www.tensorflow.org">Tensorflow</a> model.
+          Optionally, it can further retrain TensorFlow model on user data to adjust model parameters on the user data ( also know as "Transfer Learning").
+        </para>
+        <para>
+          This transform requires the <a href="https://dotnet.myget.org/feed/dotnet-core/package/nuget/Microsoft.ML.Dnn">Microsoft.ML.Dnn</a> nuget to be installed.
+          The DnnTransform has the following assumptions regarding input, output, processing of data, and retraining.
+        </para>
+        <list type="number">
+          <item>
+            <description>
+              For the input model, currently the DnnTransform supports both the <a href="https://www.tensorflow.org/mobile/prepare_models">Frozen model</a> format and also the <a href="https://www.tensorflow.org/guide/saved_model#build_and_load_a_savedmodel">SavedModel</a> format.
+              However, retraining of the model is only possible for the <a href="https://www.tensorflow.org/guide/saved_model#build_and_load_a_savedmodel">SavedModel</a> format.
+              <a href="https://www.tensorflow.org/guide/checkpoints">Checkpoint</a> format is currently neither supported for scoring nor for retraining due lack of TensorFlow C-API support for loading it.
+            </description>
+          </item>
+          <item>
+            <description>The transform supports scoring only one example at a time. However, retraining can be performed in batches.</description>
+          </item>
+          <item>
+            <description>Advanced transfer learning/fine tuning scenarios (e.g. adding more layers into the network, changing the shape of inputs, freezing the layers which do not need to be updated during retraining process etc.) are currently not possible due to lack of support for network/graph manipulation inside the model using TensorFlow C-API.</description>
+          </item>
+          <item>
+            <description>The name of input column(s) should match the name of input(s) in TensorFlow model.</description>
+          </item>
+          <item>
+            <description>The name of each output column should match one of the operations in the TensorFlow graph.</description>
+          </item>
+          <item>
+            <description>Currently, double, float, long, int, short, sbyte, ulong, uint, ushort, byte and bool are the acceptable data types for input/output.</description>
+          </item>
+          <item>
+            <description>Upon success, the transform will introduce a new column in <see cref="T:Microsoft.ML.IDataView" /> corresponding to each output column specified.</description>
+          </item>
+        </list>
+      </remarks>
+        </member>
+        <member name="M:Microsoft.ML.DnnCatalog.RetrainDnnModel(Microsoft.ML.ModelOperationsCatalog,System.String[],System.String[],System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.String,System.Single,System.Boolean,Microsoft.ML.Transforms.DnnEstimator.DnnFramework)">
+            <summary>
+            Retrain the dnn model on new data.
+            </summary>
+            <param name="catalog"></param>
+            <param name="inputColumnNames"> The names of the model inputs.</param>
+            <param name="outputColumnNames">The names of the requested model outputs.</param>
+            <param name="labelColumnName">Name of the label column.</param>
+            <param name="dnnLabel">Name of the node in DNN graph that is used as label during training in Dnn.
+            The value of <paramref name="labelColumnName"/> from <see cref="T:Microsoft.ML.IDataView"/> is fed to this node.</param>
+            <param name="optimizationOperation">The name of the optimization operation in the Dnn graph.</param>
+            <param name="modelPath">Path to model file to retrain.</param>
+            <param name="epoch">Number of training iterations.</param>
+            <param name="batchSize">Number of samples to use for mini-batch training.</param>
+            <param name="lossOperation">The name of the operation in the Dnn graph to compute training loss (Optional).</param>
+            <param name="metricOperation">The name of the operation in the Dnn graph to compute performance metric during training (Optional).</param>
+            <param name="learningRateOperation">The name of the operation in the Dnn graph which sets optimizer learning rate (Optional).</param>
+            <param name="learningRate">Learning rate to use during optimization (Optional).</param>
+            <param name="addBatchDimensionInput">Add a batch dimension to the input e.g. input = [224, 224, 3] => [-1, 224, 224, 3].
+            This parameter is used to deal with models that have unknown shape but the internal operators in the model require data to have batch dimension as well.</param>
+            <param name="dnnFramework"></param>
+            <remarks>
+            The support for retraining is under preview.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.ML.DnnCatalog.ImageClassification(Microsoft.ML.ModelOperationsCatalog,System.String,System.String,System.String,System.String,System.String,System.String,Microsoft.ML.Transforms.DnnEstimator.Architecture,Microsoft.ML.Transforms.DnnEstimator.DnnFramework,System.Int32,System.Int32,System.Single)">
+            <summary>
+            Performs image classification using transfer learning.
+            </summary>
+            <param name="catalog"></param>
+            <param name="featuresColumnName">The name of the input features column.</param>
+            <param name="labelColumnName">The name of the labels column.</param>
+            <param name="outputGraphPath">Optional name of the path where a copy new graph should be saved. The graph will be saved as part of model.</param>
+            <param name="scoreColumnName">The name of the output score column.</param>
+            <param name="predictedLabelColumnName">The name of the output predicted label columns.</param>
+            <param name="checkpointName">The name of the prefix for checkpoint files.</param>
+            <param name="arch">The architecture of the image recognition DNN model.</param>
+            <param name="dnnFramework">The backend DNN framework to use, currently only Tensorflow is supported.</param>
+            <param name="epoch">Number of training epochs.</param>
+            <param name="batchSize">The batch size for training.</param>
+            <param name="learningRate">The learning rate for training.</param>
+            <remarks>
+            The support for image classification is under preview.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.DnnModel">
+            <summary>
+            This class holds the information related to TensorFlow model and session.
+            It provides some convenient methods to query model schema as well as
+            creation of <see cref="T:Microsoft.ML.Transforms.DnnEstimator"/> object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.DnnModel.#ctor(Microsoft.ML.Runtime.IHostEnvironment,Tensorflow.Session,System.String)">
+            <summary>
+            Instantiates <see cref="T:Microsoft.ML.Transforms.DnnModel"/>.
+            </summary>
+            <param name="env">An <see cref="T:Microsoft.ML.Runtime.IHostEnvironment"/> object.</param>
+            <param name="session">TensorFlow session object.</param>
+            <param name="modelLocation">Location of the model from where <paramref name="session"/> was loaded.</param>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.DnnTransformer">
+            <summary>
+            <see cref="T:Microsoft.ML.ITransformer" /> for the <see cref="T:Microsoft.ML.Transforms.DnnEstimator"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.DnnTransformer.UpdateModelOnDisk(System.String,Microsoft.ML.Transforms.DnnEstimator.Options)">
+            <summary>
+            Updates the model on the disk.
+            After retraining Session and Graphs are both up-to-date
+            However model on disk is not which is used to serialzed to ML.Net stream
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.DnnEstimator">
+            <summary>
+        The <see cref="T:Microsoft.ML.Transforms.DnnTransformer" /> is used in following two scenarios.
+        <list type="number">
+        <item>
+          <description>
+            Scoring with pretrained <a href="https://www.tensorflow.org/">TensorFlow</a> model: In this mode, the transform extracts hidden layers' values from a pre-trained Tensorflow model and uses outputs as features in ML.Net pipeline.
+          </description>
+        </item>
+        <item>
+          <description>
+            Retraining of <a href="https://www.tensorflow.org/">TensorFlow</a> model: In this mode, the transform retrains a TensorFlow model using the user data passed through ML.Net pipeline. Once the model is trained, it's outputs can be used as features for scoring.
+          </description>
+        </item>
+      </list>
+      </summary><remarks>
+        <para>
+          The DnnTransform extracts specified outputs using a pre-trained <a href="https://www.tensorflow.org">Tensorflow</a> model.
+          Optionally, it can further retrain TensorFlow model on user data to adjust model parameters on the user data ( also know as "Transfer Learning").
+        </para>
+        <para>
+          This transform requires the <a href="https://dotnet.myget.org/feed/dotnet-core/package/nuget/Microsoft.ML.Dnn">Microsoft.ML.Dnn</a> nuget to be installed.
+          The DnnTransform has the following assumptions regarding input, output, processing of data, and retraining.
+        </para>
+        <list type="number">
+          <item>
+            <description>
+              For the input model, currently the DnnTransform supports both the <a href="https://www.tensorflow.org/mobile/prepare_models">Frozen model</a> format and also the <a href="https://www.tensorflow.org/guide/saved_model#build_and_load_a_savedmodel">SavedModel</a> format.
+              However, retraining of the model is only possible for the <a href="https://www.tensorflow.org/guide/saved_model#build_and_load_a_savedmodel">SavedModel</a> format.
+              <a href="https://www.tensorflow.org/guide/checkpoints">Checkpoint</a> format is currently neither supported for scoring nor for retraining due lack of TensorFlow C-API support for loading it.
+            </description>
+          </item>
+          <item>
+            <description>The transform supports scoring only one example at a time. However, retraining can be performed in batches.</description>
+          </item>
+          <item>
+            <description>Advanced transfer learning/fine tuning scenarios (e.g. adding more layers into the network, changing the shape of inputs, freezing the layers which do not need to be updated during retraining process etc.) are currently not possible due to lack of support for network/graph manipulation inside the model using TensorFlow C-API.</description>
+          </item>
+          <item>
+            <description>The name of input column(s) should match the name of input(s) in TensorFlow model.</description>
+          </item>
+          <item>
+            <description>The name of each output column should match one of the operations in the TensorFlow graph.</description>
+          </item>
+          <item>
+            <description>Currently, double, float, long, int, short, sbyte, ulong, uint, ushort, byte and bool are the acceptable data types for input/output.</description>
+          </item>
+          <item>
+            <description>Upon success, the transform will introduce a new column in <see cref="T:Microsoft.ML.IDataView" /> corresponding to each output column specified.</description>
+          </item>
+        </list>
+      </remarks>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.DnnEstimator.Architecture">
+            <summary>
+            Image classification model.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.DnnEstimator.DnnFramework">
+            <summary>
+            Backend DNN training framework.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.DnnEstimator.Options">
+            <summary>
+            The options for the <see cref="T:Microsoft.ML.Transforms.DnnTransformer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.ModelLocation">
+            <summary>
+            Location of the TensorFlow model.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.InputColumns">
+            <summary>
+            The names of the model inputs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.OutputColumns">
+            <summary>
+            The names of the requested model outputs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.LabelColumn">
+            <summary>
+            The name of the label column in <see cref="T:Microsoft.ML.IDataView"/> that will be mapped to label node in TensorFlow model.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.TensorFlowLabel">
+            <summary>
+            The name of the label in TensorFlow model.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.OptimizationOperation">
+            <summary>
+            Name of the operation in TensorFlow graph that is used for optimizing parameters in the graph.
+            Usually it is the name specified in the minimize method of optimizer in python
+            e.g. optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost, name = "SGDOptimizer").
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.LossOperation">
+            <summary>
+            The name of the operation in the TensorFlow graph to compute training loss (Optional).
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.MetricOperation">
+            <summary>
+            The name of the operation in the TensorFlow graph to compute performance metric during training (Optional).
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.BatchSize">
+            <summary>
+            Number of samples to use for mini-batch training.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.Epoch">
+            <summary>
+            Number of training iterations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.LearningRateOperation">
+            <summary>
+            The name of the operation in the TensorFlow graph which sets optimizer learning rate (Optional).
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.LearningRate">
+            <summary>
+            Learning rate to use during optimization.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.SaveLocationOperation">
+            <summary>
+            Name of the input in TensorFlow graph that specifiy the location for saving/restoring models to/from disk.
+            This parameter is set by different kinds of 'Savers' in TensorFlow and users don't have control over this.
+            Therefore, its highly unlikely that this parameter is changed from its default value of 'save/Const'.
+            Please change it cautiously if you need to.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.SaveOperation">
+            <summary>
+            Name of the operation in TensorFlow graph that is used for saving/restoring models to/from disk.
+            This parameter is set by different kinds of 'Savers' in TensorFlow and users don't have control over this.
+            Therefore, its highly unlikely that this parameter is changed from its default value of 'save/control_dependency'.
+            Please change it cautiously if you need to.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.ReTrain">
+            <summary>
+            Needed for command line to specify if retraining is requested.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.AddBatchDimensionInputs">
+            <summary>
+            Add a batch dimension to the input e.g. input = [224, 224, 3] => [-1, 224, 224, 3].
+            </summary>
+            <remarks>
+            This parameter is used to deal with models that have unknown shape but the internal operators in the model require data to have batch dimension as well.
+            In this case, there is no way to induce shape from the model's inputs or input data.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.TransferLearning">
+            <summary>
+            Indicates if transfer learning is requested.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.Arch">
+            <summary>
+            Specifies the model architecture to be used in the case of image classification training using transfer learning.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.ScoreColumnName">
+            <summary>
+            Name of the tensor that will contain the output scores of the last layer when transfer learning is done.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.PredictedLabelColumnName">
+            <summary>
+            Name of the tensor that will contain the predicted label from output scores of the last layer when transfer learning is done.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.CheckpointName">
+            <summary>
+            Checkpoint folder to store graph files in the event of transfer learning.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.DnnEstimator.Options.MeasureTrainAccuracy">
+            <summary>
+            Use train set to measure model accuracy between each epoch.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.DnnEstimator.GetOutputSchema(Microsoft.ML.SchemaShape)">
+            <summary>
+            Returns the <see cref="T:Microsoft.ML.SchemaShape"/> of the schema which will be produced by the transformer.
+            Used for schema propagation and verification in a pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.DnnEstimator.Fit(Microsoft.ML.IDataView)">
+            <summary>
+            Trains and returns a <see cref="T:Microsoft.ML.Transforms.DnnTransformer"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.Dnn.DnnUtils.TensorflowOperatorTypeKind">
+            <summary>
+            Key to access operator's type (a string) in <see cref="P:Microsoft.ML.DataViewSchema.Column.Annotations"/>.
+            Its value describes the Tensorflow operator that produces this <see cref="T:Microsoft.ML.DataViewSchema.Column"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ML.Transforms.Dnn.DnnUtils.TensorflowUpstreamOperatorsKind">
+            <summary>
+            Key to access upstream operators' names (a string array) in <see cref="P:Microsoft.ML.DataViewSchema.Column.Annotations"/>.
+            Its value states operators that the associated <see cref="T:Microsoft.ML.DataViewSchema.Column"/>'s generator depends on.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.Dnn.DnnUtils.CreateFolderWithAclIfNotExists(Microsoft.ML.Runtime.IHostEnvironment,System.String)">
+            <summary>
+             Given a folder path, create it with proper ACL if it doesn't exist.
+             Fails if the folder name is empty, or can't create the folder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.Dnn.DnnUtils.LoadDnnModel(Microsoft.ML.Runtime.IHostEnvironment,System.String,System.Boolean)">
+            <summary>
+            Load TensorFlow model into memory.
+            </summary>
+            <param name="env">The environment to use.</param>
+            <param name="modelPath">The model to load.</param>
+            <param name="metaGraph"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.ML.Transforms.Dnn.DnnUtils.Runner">
+            <summary>
+            Use the runner class to easily configure inputs, outputs and targets to be passed to the session runner.
+            </summary>
+            <remarks>
+            <para>
+            The runner has a simple API that allows developers to call the AddTarget, AddInput, AddOutput and Fetch
+            to construct the parameters that will be passed to the TFSession.Run method.
+            </para>
+            <para>
+            Instances of this class are created by calling the GetRunner method on the TFSession.
+            </para>
+            <para>
+            The various methods in this class return an instance to the Runner itsel, to allow
+            to easily construct chains of execution like this:
+            </para>
+            <code>
+            var result = session.GetRunner ().AddINput (myInput).Fetch (MyOutput).Run ();
+            </code>
+            <para>
+            You do not need to chain the operations, this works just the same:
+            </para>
+            <code>
+            runner = session.GetRunner ();
+            runner.AddInput(myInput);
+            runner.Fetch(myOutput);
+            var results = runner.Run();
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.Dnn.DnnUtils.Runner.AddInput(System.String,Tensorflow.Tensor)">
+            <summary>
+            Adds an input to the session specified by name, with an optional index in the operation (separated by a colon).
+            </summary>
+            <returns>An instance to the runner, so you can easily chain the operations together.</returns>
+            <param name="input">Incoming port, with an optional index separated by a colon.</param>
+            <param name="value">Value to assing to the incoming port.</param>
+        </member>
+        <member name="M:Microsoft.ML.Transforms.Dnn.DnnUtils.Runner.Run">
+            <summary>
+            Executes a pipeline given the specified inputs, inputValues, outputs, targetOpers, runMetadata and runOptions.
+            A simpler API is available by calling the <see cref="M:GetRunner"/> method which performs all the bookkeeping
+            necessary.
+            </summary>
+            <returns>An array of tensors fetched from the requested outputs.</returns>
+        </member>
+    </members>
+</doc>
