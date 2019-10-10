@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>ZenObjectDetection</AssemblyName>
+    <Configurations>Debug;Release;Develop</Configurations>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<DefineConstants>TRACE;NETCOREAPP2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Implementations\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|AnyCPU'">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>$(ZENO_PROJ)\Implementations\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ZenCommon\NetCore\ZenCommonDotNetCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\..\libs\Google.Protobuf.3.5.1\lib\netstandard1.0\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Core">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml\1.3.1\lib\netstandard2.0\Microsoft.ML.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.CpuMath">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml.cpumath\1.3.1\lib\netstandard2.0\Microsoft.ML.CpuMath.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Data">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml\1.3.1\lib\netstandard2.0\Microsoft.ML.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.DataView">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml.dataview\1.3.1\lib\netstandard2.0\Microsoft.ML.DataView.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.ImageAnalytics">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml.imageanalytics\1.3.1\lib\netstandard2.0\Microsoft.ML.ImageAnalytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.KMeansClustering">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml\1.3.1\lib\netstandard2.0\Microsoft.ML.KMeansClustering.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.OnnxRuntime">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml.onnxruntime\0.4.0\lib\netstandard1.1\Microsoft.ML.OnnxRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.OnnxTransformer">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml.onnxtransformer\1.3.1\lib\netstandard2.0\Microsoft.ML.OnnxTransformer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.PCA">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml\1.3.1\lib\netstandard2.0\Microsoft.ML.PCA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.StandardTrainers">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml\1.3.1\lib\netstandard2.0\Microsoft.ML.StandardTrainers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Transforms">
+      <HintPath>..\..\..\libs\microsoft.ml\microsoft.ml\1.3.1\lib\netstandard2.0\Microsoft.ML.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>..\..\..\libs\system.drawing.common\4.5.0\runtimes\win\lib\netcoreapp2.0\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Tensors">
+      <HintPath>..\..\..\libs\system.numerics.tensors\0.1.0\lib\netstandard1.1\System.Numerics.Tensors.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy ..\..\..\libs\microsoft.ml\microsoft.ml.onnxruntime\0.4.0\runtimes\win-x64\native\onnxruntime.dll  $(ZENO_PROJ)\Implementations\  /Y&#xD;&#xA;&#xD;&#xA;if $(ConfigurationName) ==  Release (&#xD;&#xA;xcopy  &quot;$(TargetDir)*.dll&quot; &quot;$(SolutionDir)Implementations&quot; /Y&#xD;&#xA;del   &quot;$(SolutionDir)Implementations\netcoreapp2.2&quot; /S /Q&#xD;&#xA;)" />
+  </Target>
+
+</Project>

@@ -24,7 +24,10 @@
 	dotnet build --configuration Release "%cd%\ZenMySql\ZenMySql.csproj"
 	dotnet build --configuration Release "%cd%\ZenSqlServer\ZenSqlServer.csproj"
 	dotnet build --configuration Release "%cd%\ZenWebServer\ZenWebServer.csproj"
+	dotnet build --configuration Release "%cd%\ZenObjectDetection\ZenObjectDetection.csproj"
 	
+	copy "..\..\libs\microsoft.ml\microsoft.ml.onnxruntime\0.4.0\runtimes\win-x64\native\onnxruntime.dll"  "%SolutionDir%\Implementations\"  /Y
+
     endlocal
     goto :EOF
 

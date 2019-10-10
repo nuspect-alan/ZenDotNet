@@ -140,3 +140,6 @@
 /ZenHelpers/ZenCS/.vs
 /Implementations
 .vs/ZenDotNetCoreComplete/v16
+/ZenDotNetCoreComplete.v12.suo
+/Elements/NetCore/ZenObjectDetection/bin
+/Elements/NetCore/ZenObjectDetection/obj

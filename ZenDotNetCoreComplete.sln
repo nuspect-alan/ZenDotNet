@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27617.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenAssetReceiver", "Elements\NetCore\ZenAssetReceiver\ZenAssetReceiver.csproj", "{B86E788D-4893-4BCD-8426-70748E89C49B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -89,6 +89,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenMySql", "Elements\NetCore\ZenMySql\ZenMySql.csproj", "{0A5EA53A-2D33-4113-8FFF-E113DB74BE5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenGwSystemInfo", "Elements\NetCore\ZenGwSystemInfo\ZenGwSystemInfo.csproj", "{15251500-676A-47BB-9252-7CC6287A171A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZenObjectDetection", "Elements\NetCore\ZenObjectDetection\ZenObjectDetection.csproj", "{97CDFC18-4D67-4F5B-AE29-95293215ABAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -490,6 +492,30 @@ Global
 		{15251500-676A-47BB-9252-7CC6287A171A}.Release|x64.Build.0 = Release|Any CPU
 		{15251500-676A-47BB-9252-7CC6287A171A}.Release|x86.ActiveCfg = Release|Any CPU
 		{15251500-676A-47BB-9252-7CC6287A171A}.Release|x86.Build.0 = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|ARM.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|x64.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Debug|x86.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|Any CPU.ActiveCfg = Develop|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|Any CPU.Build.0 = Develop|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|ARM.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|ARM.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|x64.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|x64.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|x86.ActiveCfg = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Develop|x86.Build.0 = Debug|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|ARM.ActiveCfg = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|ARM.Build.0 = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|x64.ActiveCfg = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|x64.Build.0 = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|x86.ActiveCfg = Release|Any CPU
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -511,6 +537,7 @@ Global
 		{F10A703B-60B2-4F40-B06A-83A28DE8B642} = {6BF4642E-5050-405E-AEB8-E6BF46991286}
 		{0A5EA53A-2D33-4113-8FFF-E113DB74BE5E} = {6BF4642E-5050-405E-AEB8-E6BF46991286}
 		{15251500-676A-47BB-9252-7CC6287A171A} = {6BF4642E-5050-405E-AEB8-E6BF46991286}
+		{97CDFC18-4D67-4F5B-AE29-95293215ABAD} = {6BF4642E-5050-405E-AEB8-E6BF46991286}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D291FBF1-B001-4FA1-90D8-FD320791F0C4}
