@@ -60,16 +60,22 @@ namespace ZenCsScript
             {
                 var elementMatch = match.Groups[1].Value;
                 int i = 0;
+                // Find first double quote: exec("element")
+                //                               _
                 while (i < elementMatch.Length && elementMatch[i] != '"') i++;
 
                 i++;
                 string elementId = string.Empty;
+                // Extract element id. Loop till ending double quote: exec("element")
+                //                                                                 _
                 while (i < elementMatch.Length && elementMatch[i] != '"')
                 {
                     elementId += elementMatch[i].ToString();
                     i++;
                 }
-                pluginsToExecute += elementId.Trim() + ",";
+
+                if (!string.IsNullOrEmpty(elementId))
+                    pluginsToExecute += elementId.Trim() + ",";
             }
             return pluginsToExecute;
         }
